@@ -1,3 +1,5 @@
+let main = document.getElementById('main');
+
 export const register = () => {
     let sectionA = document.createElement('section');
     let logo = document.createElement('img');
@@ -45,9 +47,7 @@ export const register = () => {
     button.innerText = 'Enviar';
     button.type = 'button';
 
-
-
-
-
-
+    main.appendChild(sectionA);
+    main.appendChild(sectionB);
+    main.appendChild(sectionC);
 }
