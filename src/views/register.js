@@ -1,4 +1,5 @@
 let main = document.getElementById('main');
+let footer = document.getElementById('footer');
 
 export const register = () => {
     let sectionA = document.createElement('section');
@@ -14,6 +15,7 @@ export const register = () => {
     let password = document.createElement('label');
     let inputPassword = document.createElement('input');
     let button = document.createElement('button');
+    const p = document.createElement('p');
 
     sectionA.className = 'section-logo';
     sectionA.appendChild(logo);
@@ -25,13 +27,17 @@ export const register = () => {
     registrate.innerText = 'Regístrate';
 
 
-    sectionC.className = 'sectionForm';
+    sectionC.className = 'section-form';
 
     sectionC.appendChild(form);
     form.appendChild(correo);
     form.appendChild(inputCorreo);
     inputCorreo.type = 'email';
     inputCorreo.placeholder = 'correo@dominio.com';
+
+    correo.innerText = 'Correo';
+    usuaria.innerText = 'Usuaria';
+    password.innerText = 'Contraseña';
 
     form.appendChild(usuaria);
     form.appendChild(inputUsuaria);
@@ -50,4 +56,9 @@ export const register = () => {
     main.appendChild(sectionA);
     main.appendChild(sectionB);
     main.appendChild(sectionC);
+
+    p.innerText = 'Desarrollado por y para Laboratorians';
+
+    footer.appendChild(p);
 }
+
