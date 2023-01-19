@@ -36,7 +36,7 @@ export const register = () => {
     inputCorreo.placeholder = 'correo@dominio.com';
     inputCorreo.id= 'correo'
     inputCorreo.required='required'
-    inputCorreo.pattern= [a-z ]
+    inputCorreo.pattern= ['a-z'];
     correo.innerText = 'Correo';
     usuaria.innerText = 'Usuaria';
     password.innerText = 'Contraseña';
