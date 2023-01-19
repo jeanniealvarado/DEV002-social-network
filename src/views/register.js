@@ -21,11 +21,9 @@ export const register = () => {
     sectionA.appendChild(logo);
     logo.src = './img/logo-big.png';
     logo.alt = 'logo-powerL';
-
     sectionB.className = 'section-h2';
     sectionB.appendChild(registrate);
     registrate.innerText = 'Regístrate';
-
 
     sectionC.className = 'section-form';
 
@@ -34,9 +32,9 @@ export const register = () => {
     form.appendChild(inputCorreo);
     inputCorreo.type = 'email';
     inputCorreo.placeholder = 'correo@dominio.com';
-    inputCorreo.id= 'correo'
-    inputCorreo.required='required'
-    inputCorreo.pattern= ['a-z'];
+    inputCorreo.id = 'correo';
+    inputCorreo.required='required';
+
     correo.innerText = 'Correo';
     usuaria.innerText = 'Usuaria';
     password.innerText = 'Contraseña';
@@ -55,7 +53,7 @@ export const register = () => {
 
     form.appendChild(button);
     button.innerText = 'Enviar';
-    button.type = 'button';
+    button.type = 'submit';
     button.id= 'enviar'
     main.appendChild(sectionA);
     main.appendChild(sectionB);
