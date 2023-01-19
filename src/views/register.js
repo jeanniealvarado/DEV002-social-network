@@ -34,7 +34,9 @@ export const register = () => {
     form.appendChild(inputCorreo);
     inputCorreo.type = 'email';
     inputCorreo.placeholder = 'correo@dominio.com';
-
+    inputCorreo.id= 'correo'
+    inputCorreo.required='required'
+    inputCorreo.pattern= [a-z ]
     correo.innerText = 'Correo';
     usuaria.innerText = 'Usuaria';
     password.innerText = 'Contraseña';
@@ -43,16 +45,18 @@ export const register = () => {
     form.appendChild(inputUsuaria);
     inputUsuaria.type = 'text';
     inputUsuaria.placeholder = 'usuariaCoolDEV002';
+    inputUsuaria.id='usuaria'
 
     form.appendChild(password);
     form.appendChild(inputPassword);
     inputPassword.type = 'password';
     inputPassword.placeholder = '******';
+    inputPassword.id= 'password'
 
     form.appendChild(button);
     button.innerText = 'Enviar';
     button.type = 'button';
-
+    button.id= 'enviar'
     main.appendChild(sectionA);
     main.appendChild(sectionB);
     main.appendChild(sectionC);

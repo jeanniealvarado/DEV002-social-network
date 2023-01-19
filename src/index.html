@@ -18,7 +18,26 @@
   </main>
   <footer id="footer">
   </footer>
-  <script type="module" src="main.js"></script>
+  <script type="module" src="main.js">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+
+// Add Firebase products that you want to use
+import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyBnTScWCpVkT3pFznDp0D3QpFshLt7Fmek",
+  authDomain: "social-network-d5de7.firebaseapp.com",
+  databaseURL: "https://social-network-d5de7-default-rtdb.firebaseio.com",
+  projectId: "social-network-d5de7",
+  storageBucket: "social-network-d5de7.appspot.com",
+  messagingSenderId: "616796224477",
+  appId: "1:616796224477:web:24c4b86de7ad42ba329434"
+};
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const auth = firebase.auth();
+  </script>
 </body>
 
 </html>
