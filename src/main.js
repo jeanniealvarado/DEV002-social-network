@@ -10,8 +10,6 @@ import{route, template, router} from './lib/Router.js'
 initializeApp(firebaseConfig);
 //register();
 
-
-
 template('inicioDeSesion', function () { //Se crea una función anónima
     inicioDeSesion(); // Le asigna a la función anónima la función about()
 })
@@ -22,14 +20,11 @@ template('register', function () { //Se crea una función anónima
 route('/', 'inicioDeSesion');
 route('/register', 'register');
 
-
 const submit = document.getElementById('enviar')
 
 const auth = getAuth();
 
-
 window.addEventListener('load', router); // Con el evento load se ejecuta la función router
-console.log('escuchando evento hashchange')
 window.addEventListener('hashchange', router); 
 
 submit.addEventListener('click', (e) => {
