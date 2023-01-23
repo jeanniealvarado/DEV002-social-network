@@ -4,10 +4,11 @@ import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 import { emailAutentication} from './Firebase/FirebaseFunctions.js';
+import { inicioDeSesion } from './views/InicioDeSesion.js';
 
 initializeApp(firebaseConfig);
-register();
-
+//register();
+inicioDeSesion()
 const submit = document.getElementById('enviar')
 
 const auth = getAuth();
