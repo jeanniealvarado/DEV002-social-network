@@ -16,7 +16,8 @@ template('inicioDeSesion', function () { //Se crea una función anónima
     inicioDeSesion(); // Le asigna a la función anónima la función about()
 })
 template('register', function () { //Se crea una función anónima
-    register(); // Le asigna a la función anónima la función about()
+    register(); 
+    // Le asigna a la función anónima la función about()
 })
 
 route('/', 'inicioDeSesion');
@@ -32,13 +33,3 @@ window.addEventListener('load', router); // Con el evento load se ejecuta la fun
 console.log('escuchando evento hashchange')
 window.addEventListener('hashchange', router); 
 
-submit.addEventListener('click', (e) => {
-    e.preventDefault();
-    let email = document.getElementById('correo').value
-    //let usuaria = document.getElementById('usuaria').value
-    let password = document.getElementById('password').value
-    console.log(email)
-    console.log(password)
-    //registerFirebase(auth, email, password)
-    emailAutentication(auth, email)
-})
