@@ -13,9 +13,10 @@ export const inicioDeSesion = () => {
     let Recovery = document.createElement('a')
     let button = document.createElement('button');
     let sectionC = document.createElement('section');
-    const p = document.createElement('p');
+    let p = document.createElement('p');
     let register = document.createElement('a')
     let sectionD = document.createElement('section');
+    let divO = document.createElement('div');
     let option = document.createElement('p')
     let sesionCon = document.createElement('p')
     let google = document.createElement('img')
@@ -26,7 +27,7 @@ export const inicioDeSesion = () => {
     logo.src = './img/logo-big.png';
     logo.alt = 'logo-powerL';
     sectionB.className = 'section-form-inicio';
-    form.className='form inicio'
+    form.className='form-inicio'
     sectionB.appendChild(form);
     form.appendChild(correo);
     form.appendChild(inputCorreo);
@@ -37,12 +38,13 @@ export const inicioDeSesion = () => {
 
     form.appendChild(password);
     form.appendChild(inputPassword);
+    form.appendChild(Recovery)
     inputPassword.type = 'password';
     inputPassword.placeholder = '******';
     inputPassword.id = 'password'
 
     form.appendChild(button);
-    button.innerText = 'Enviar';
+    button.innerText = 'Iniciar sesión';
     button.type = 'submit';
     button.id = 'enviar'
 
@@ -50,22 +52,26 @@ export const inicioDeSesion = () => {
     password.innerText = 'Contraseña';
     Recovery.innerText = '¿Olvidaste tu contraseña?'
 
-    form.appendChild(Recovery)
     Recovery.id = 'recovey'
 
     sectionC.className = 'section-register';
-    sectionC.appendChild(p)
-    p.appendChild(register)
+    sectionC.appendChild(p);
     p.innerText = '¿Aún no tienes una cuenta?'
+    p.appendChild(register);
     register.innerText = 'Registrate'
 
     sectionD.className = 'section-google';
-    sectionD.appendChild(option)
+    sectionD.appendChild(divO);
     sectionD.appendChild(sesionCon)
     sesionCon.appendChild(google)
 
+    divO.appendChild(option);
+
     option.innerText = 'O'
-    sesionCon.innerText = 'Inicie sesión con'
+    sesionCon.innerText = 'Inicie sesión con  '
+    sesionCon.appendChild(google);
+    google.src = '../img/google-logo.png';
+    google.alt = 'logo-Google';
 
     main.appendChild(sectionA);
     main.appendChild(sectionB);
