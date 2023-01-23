@@ -8,32 +8,31 @@ import { inicioDeSesion } from './views/InicioDeSesion.js';
 import{route, template, router} from './lib/Router.js'
 
 initializeApp(firebaseConfig);
-//register();
+const auth = getAuth();
 
 template('inicioDeSesion', function () { //Se crea una función anónima
     inicioDeSesion(); // Le asigna a la función anónima la función about()
 })
+
 template('register', function () { //Se crea una función anónima
     register(); // Le asigna a la función anónima la función about()
+    const submit = document.getElementById('enviar');
+    submit.addEventListener('click', (e) => {
+        e.preventDefault();
+        let email = document.getElementById('correo').value
+        //let usuaria = document.getElementById('usuaria').value
+        let password = document.getElementById('password').value
+        console.log(email)
+        console.log(password)
+        //registerFirebase(auth, email, password)
+        emailAutentication(auth, email)
+    })
 })
 
 route('/', 'inicioDeSesion');
 route('/register', 'register');
 
-const submit = document.getElementById('enviar')
-
-const auth = getAuth();
-
 window.addEventListener('load', router); // Con el evento load se ejecuta la función router
 window.addEventListener('hashchange', router); 
 
-submit.addEventListener('click', (e) => {
-    e.preventDefault();
-    let email = document.getElementById('correo').value
-    //let usuaria = document.getElementById('usuaria').value
-    let password = document.getElementById('password').value
-    console.log(email)
-    console.log(password)
-    //registerFirebase(auth, email, password)
-    emailAutentication(auth, email)
-})
+
