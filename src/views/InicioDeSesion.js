@@ -2,6 +2,7 @@ let main = document.getElementById('main');
 let footer = document.getElementById('footer');
 
 export const inicioDeSesion = () => {
+    main.innerHTML=''
     let sectionA = document.createElement('section');
     let logo = document.createElement('img');
     let sectionB = document.createElement('section');
@@ -27,7 +28,7 @@ export const inicioDeSesion = () => {
     logo.src = './img/logo-big.png';
     logo.alt = 'logo-powerL';
     sectionB.className = 'section-form-inicio';
-    form.className='form-inicio'
+    form.className = 'form-inicio'
     sectionB.appendChild(form);
     form.appendChild(correo);
     form.appendChild(inputCorreo);
@@ -59,6 +60,7 @@ export const inicioDeSesion = () => {
     p.innerText = '¿Aún no tienes una cuenta?'
     p.appendChild(register);
     register.innerText = 'Registrate'
+    register.href = '#/register'
 
     sectionD.className = 'section-google';
     sectionD.appendChild(divO);
@@ -78,7 +80,7 @@ export const inicioDeSesion = () => {
     main.appendChild(sectionC);
     main.appendChild(sectionD)
 
-
+    
 
     pFooter.innerText = 'Desarrollado por y para Laboratorians';
 
