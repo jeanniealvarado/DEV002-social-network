@@ -20,7 +20,8 @@ export const emailAutentication = (auth, email) => {
     const actionCodeSettings = {
         // URL you want to redirect back to. The domain (www.example.com) for this
         // URL must be in the authorized domains list in the Firebase Console.
-        url:'http://localhost:3000/#/?mode=action&oobCode=code',
+        url: 'http://localhost:3000/#/?mode=action&oobCode=code',
+        //url:'https://social-network-d5de7.firebaseapp.com/__/auth/action?mode=action&oobCode=code',
         // This must be true.
         handleCodeInApp: true
         // iOS: {
@@ -42,10 +43,13 @@ export const emailAutentication = (auth, email) => {
             // if they open the link on the same device.
             window.localStorage.setItem('emailForSignIn', email);
             // ...
+            alert('Correo enviado con exito');
         })
         .catch((error) => {
             const errorCode = error.code;
+            alert(errorCode);
             const errorMessage = error.message;
+            elert(errorMessage);
             // ...
         });
 }
