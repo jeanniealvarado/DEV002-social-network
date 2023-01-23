@@ -2,6 +2,7 @@ let main = document.getElementById('main');
 let footer = document.getElementById('footer');
 
 export const register = () => {
+    main.innerHTML=''
     let sectionA = document.createElement('section');
     let logo = document.createElement('img');
     let sectionB = document.createElement('section');
