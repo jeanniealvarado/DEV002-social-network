@@ -3,7 +3,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebas
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-import { emailAutentication} from './Firebase/FirebaseFunctions.js';
+import { registerFirebase} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import{route, template, router} from './lib/Router.js'
 
@@ -25,8 +25,8 @@ template('register', function () { //Se crea una función anónima
         let password = document.getElementById('password').value
         console.log(email)
         console.log(password)
-        //registerFirebase(auth, email, password)
-        emailAutentication(auth, email)
+        registerFirebase(auth, email, password)
+        //emailAutentication(auth, email)
     })
 })
 
