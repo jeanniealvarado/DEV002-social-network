@@ -7,11 +7,13 @@ import { emailAutentication} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import{route, template, router} from './lib/Router.js'
 
+
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
 template('inicioDeSesion', function () { //Se crea una función anónima
     inicioDeSesion(); // Le asigna a la función anónima la función about()
+    //confirmarEmail(auth, window.location.href);
 })
 
 template('register', function () { //Se crea una función anónima
