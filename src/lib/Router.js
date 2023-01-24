@@ -34,6 +34,7 @@ export const resolveRoute = (route) => {
 
 export const router = () => {
     let url = window.location.hash.slice(1) || '/'; // guarda el valor de la ruta después del hash (gato o michi)
+    console.log(url)
     let route = resolveRoute(url); // Declara la variable route y le asigna lo que regresa la función resolveRoute (la url)
     route() //Manda llamar a la función route
 };
