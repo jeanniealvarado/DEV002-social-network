@@ -13,10 +13,22 @@ export const registerFirebase = (auth, email, password) => {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            alert(errorMessage)
         })
         .then (function(){
             sendEmailVerification(auth.currentUser)
+            //alert ('El correo de verificación ha sido enviado con exito')
         })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage)
+    
+//         if(password=== null|| email=== null){
+// throw TypeError ('ingresa la información solicitada')
+//         }
+
+})
 }
 
 // function verificar (auth, currentUser){
@@ -66,6 +78,5 @@ export const registerFirebase = (auth, email, password) => {
 //         });
     
 // }
-
 
 
