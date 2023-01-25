@@ -52,6 +52,9 @@ export const register = () => {
     inputPassword.type = 'password';
     inputPassword.placeholder = '******';
     inputPassword.id= 'password'
+    inputPassword.minLength= '6'
+    inputPassword.maxLength='12'
+    inputPassword.required='required'
 
     form.appendChild(button);
     button.innerText = 'Enviar';

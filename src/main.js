@@ -26,6 +26,7 @@ template('register', function () { //Se crea una función anónima
         console.log(email)
         console.log(password)
         registerFirebase(auth, email, password)
+        
         //emailAutentication(auth, email)
     })
 })
