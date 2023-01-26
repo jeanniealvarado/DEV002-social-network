@@ -1,6 +1,6 @@
 
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-import { sendEmailVerification } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { sendEmailVerification, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 //import { isSignInWithEmailLink, signInWithEmailLink } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 
 export const registerFirebase = (auth, email, password) => {
@@ -17,7 +17,6 @@ export const registerFirebase = (auth, email, password) => {
         })
         .then (function(){
             sendEmailVerification(auth.currentUser)
-            //alert ('El correo de verificación ha sido enviado con exito')
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -29,54 +28,26 @@ export const registerFirebase = (auth, email, password) => {
 //         }
 
 })
+
 }
 
-// function verificar (auth, currentUser){
-//     sendEmailVerification(auth.currentUser)
-//     .then(() => {
-//       // Email verification sent!
-//       // ...
-//     });
-// }
-
-// export const emailAutentication = (auth, email) => {
-//     console.log('funcion autentication')
-//     const actionCodeSettings = {
-//         // URL you want to redirect back to. The domain (www.example.com) for this
-//         // URL must be in the authorized domains list in the Firebase Console.
-//         url: 'http://localhost:3000/#/?mode=action&oobCode=code',
-//         //url:'https://social-network-d5de7.firebaseapp.com/__/auth/action?mode=action&oobCode=code',
-//         // This must be true.
-//         handleCodeInApp: true
-//         // iOS: {
-//         //   bundleId: 'com.example.ios'
-//         // },
-//         // android: {
-//         //   packageName: 'com.example.android',
-//         //   installApp: false,
-//         //   minimumVersion: '12'
-//         // },
-//     };
-
-//     console.log('fuera del objeto')
-//     sendSignInLinkToEmail(auth, email, actionCodeSettings)
-//         .then(() => {
-//             console.log('funcion email')
-//             // The link was successfully sent. Inform the user.
-//             // Save the email locally so you don't need to ask the user for it again
-//             // if they open the link on the same device.
-//             window.localStorage.setItem('emailForSignIn', email);
-//             // ...
-//             alert('Correo enviado con exito');
-//         })
-//         .catch((error) => {
-//             const errorCode = error.code;
-//             alert(errorCode);
-//             const errorMessage = error.message;
-//             alert(errorMessage);
-//             // ...
-//         });
-    
-// }
-
-
+export const registerGoogle = (auth, provider)=>{
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+}
