@@ -21,6 +21,7 @@ export const inicioDeSesion = () => {
     let divO = document.createElement('div');
     let option = document.createElement('p')
     let sesionCon = document.createElement('p')
+    //let buttonG= document.createElement('button')
     let google = document.createElement('img')
     let pFooter = document.createElement('p')
 
@@ -66,6 +67,7 @@ export const inicioDeSesion = () => {
     sectionD.className = 'section-google';
     sectionD.appendChild(divO);
     sectionD.appendChild(sesionCon)
+    //sesionCon.appendChild(buttonG)
     sesionCon.appendChild(google)
 
     divO.appendChild(option);
@@ -75,6 +77,7 @@ export const inicioDeSesion = () => {
     sesionCon.appendChild(google);
     google.src = '../img/google-logo.png';
     google.alt = 'logo-Google';
+    google.id='google'
 
     main.appendChild(sectionA);
     main.appendChild(sectionB);

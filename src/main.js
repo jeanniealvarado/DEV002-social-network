@@ -2,28 +2,22 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-import { registerFirebase} from './Firebase/FirebaseFunctions.js';
+import { getAuth, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { registerFirebase, registerGoogle} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import{route, template, router} from './lib/Router.js'
 
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
+const provider = new GoogleAuthProvider()
 
 template('inicioDeSesion', function () { //Se crea una función anónima
     inicioDeSesion(); // Le asigna a la función anónima la función about()
-    //confirmarEmail(auth, window.location.href);
-    const enviar = document.getElementById('enviar')
-    enviar.addEventListener('click', (e) => {
+    const google= document.getElementById('google');
+    google.addEventListener('click', (e) =>{
         e.preventDefault();
-        let email = document.getElementById('correo').value
-        //let usuaria = document.getElementById('usuaria').value
-        let password = document.getElementById('password').value
-        console.log(email)
-        console.log(password)
-        
-        ingresar(email, password)
+        registerGoogle(auth, provider)
     })
 })
 
@@ -41,7 +35,14 @@ template('register', function () { //Se crea una función anónima
         registerFirebase(auth, email, password)
         
         //emailAutentication(auth, email)
+        if (email == '' || password == ''){
+            alert('Completa los datos requeridos')
+        }
+        else {
+            alert('El correo de verificación ha sido enviado a su bandeja de entrada')
+        }
     })
+   
 })
 
 route('/', 'inicioDeSesion');
