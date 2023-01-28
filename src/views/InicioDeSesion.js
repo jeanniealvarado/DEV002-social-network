@@ -14,6 +14,7 @@ export const inicioDeSesion = () => {
     let inputPassword = document.createElement('input');
     let Recovery = document.createElement('a')
     let button = document.createElement('button');
+    //let signIn = document.createElement('a');
     let sectionC = document.createElement('section');
     let p = document.createElement('p');
     let register = document.createElement('a')
@@ -44,25 +45,29 @@ export const inicioDeSesion = () => {
     form.appendChild(Recovery)
     inputPassword.type = 'password';
     inputPassword.placeholder = '******';
-    inputPassword.id = 'password'
+    inputPassword.id = 'password';
 
     form.appendChild(button);
     button.innerText = 'Iniciar sesión';
     button.type = 'submit';
-    button.id = 'enviar'
+    button.id = 'enviar';
+   // button.href = '#/timeline';
 
     correo.innerText = 'Correo';
     password.innerText = 'Contraseña';
-    Recovery.innerText = '¿Olvidaste tu contraseña?'
+    Recovery.innerText = '¿Olvidaste tu contraseña?';
 
-    Recovery.id = 'recovey'
+    //button.appendChild('signIn');
+
+    Recovery.id = 'recovey';
 
     sectionC.className = 'section-register';
     sectionC.appendChild(p);
-    p.innerText = '¿Aún no tienes una cuenta?'
+    p.innerText = '¿Aún no tienes una cuenta?';
     p.appendChild(register);
-    register.innerText = 'Registrate'
-    register.href = '#/register'
+    register.innerText = 'Registrate';
+    register.href = '#/register';
+
 
     sectionD.className = 'section-google';
     sectionD.appendChild(divO);
@@ -82,7 +87,7 @@ export const inicioDeSesion = () => {
     main.appendChild(sectionA);
     main.appendChild(sectionB);
     main.appendChild(sectionC);
-    main.appendChild(sectionD)
+    main.appendChild(sectionD);
 
     
 

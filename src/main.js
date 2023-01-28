@@ -18,8 +18,15 @@ template('inicioDeSesion', function () { //Se crea una función anónima
     const google= document.getElementById('google');
     google.addEventListener('click', (e) =>{
         e.preventDefault();
-        registerGoogle(auth, provider)
+        registerGoogle(auth, provider)    
     })
+
+    // let signIn = document.getElementById('enviar');
+    // signIn.addEventListener ('click', (e) =>{
+    //     e.preventDefault();
+    //     signIn.href = '#/timeline';
+    // })
+
 })
 
 template('register', function () { //Se crea una función anónima
@@ -48,7 +55,6 @@ template('register', function () { //Se crea una función anónima
 
 template('timeline', function () {
     timeline();
-
 })
 
 route('/', 'inicioDeSesion');

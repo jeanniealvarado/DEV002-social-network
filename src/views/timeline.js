@@ -5,13 +5,13 @@ export const timeline = () => {
     main.innerHTML = '';
     footer.innerHTML = '';
 
-    let sectionA = document.createElement('section');
+    let section1 = document.createElement('section');
     let logo = document.createElement('img');
     let holaUsuaria = document.createElement('p');
-    let sectionB = document.createElement('section');
+    let section2 = document.createElement('section');
     let inputPost = document.createElement('textarea');
     let botonEnviar = document.createElement('button');
-    let sectionC = document.createElement('section');
+    let section3 = document.createElement('section');
     let nombrePost = document.createElement('p');
     let divPosted = document.createElement('div');
     let eliminar = document.createElement('i');
@@ -19,7 +19,7 @@ export const timeline = () => {
     let fecha = document.createElement('p');
     let signOut = document.createElement('i');
 
-    sectionA.className = 'section-head';
+    section1.className = 'section-head';
     logo.className = 'logo-timeline';
     logo.src = './img/logo-big.png';
     logo.alt = 'logo-powerL';
@@ -27,32 +27,32 @@ export const timeline = () => {
     eliminar.className = 'fa-solid fa-trash-can';
     editar.className = 'fa-regular fa-pen-to-square';
     signOut.className = 'fa-solid fa-arrow-right-from-bracket'
-    sectionA.appendChild(logo);
-    sectionA.appendChild(holaUsuaria);
+    section1.appendChild(logo);
+    section1.appendChild(holaUsuaria);
 
-    sectionB.className = 'section-posting';
+    section2.className = 'section-posting';
     inputPost.className = 'input-post';
     botonEnviar.className = 'boton-enviar';
 
-    sectionB.appendChild(inputPost);
-    sectionB.appendChild(botonEnviar);
+    section2.appendChild(inputPost);
+    section2.appendChild(botonEnviar);
 
-    sectionC.className('section-timeline');
+    section3.className = 'section-timeline';
     nombrePost.className = 'autora-post';
     divPosted.className = 'div-posted';
     eliminar.className = 'boton-eliminar';
     editar.className = 'boton-editar';
     fecha.className = 'fecha-post';
-    sectionC.appendChild(nombrePost);
-    sectionC.appendChild(divPosted);
-    sectionC.appendChild(fecha)
+    section3.appendChild(nombrePost);
+    section3.appendChild(divPosted);
+    section3.appendChild(fecha)
     fecha.appendChild(eliminar);
     fecha.appendChild(editar);
 
+    main.appendChild(section1);
+    main.appendChild(section2);
+    main.appendChild(section3);
+
     signOut.className = 'sign-out-botton';
     footer.appendChild(signOut);
-    
-    timeline.href = '#/timeline';
-
-
 } 
