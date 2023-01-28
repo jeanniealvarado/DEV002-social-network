@@ -2,10 +2,12 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
+import { timeline } from './views/timeline.js';
 import { getAuth, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 import { registerFirebase, registerGoogle} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import{route, template, router} from './lib/Router.js'
+
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -16,8 +18,15 @@ template('inicioDeSesion', function () { //Se crea una función anónima
     const google= document.getElementById('google');
     google.addEventListener('click', (e) =>{
         e.preventDefault();
-        registerGoogle(auth, provider)
+        registerGoogle(auth, provider)    
     })
+
+    // let signIn = document.getElementById('enviar');
+    // signIn.addEventListener ('click', (e) =>{
+    //     e.preventDefault();
+    //     signIn.href = '#/timeline';
+    // })
+
 })
 
 template('register', function () { //Se crea una función anónima
@@ -44,8 +53,13 @@ template('register', function () { //Se crea una función anónima
    
 })
 
+template('timeline', function () {
+    timeline();
+})
+
 route('/', 'inicioDeSesion');
 route('/register', 'register');
+route('/timeline', 'timeline');
 
 window.addEventListener('load', router); // Con el evento load se ejecuta la función router
 window.addEventListener('hashchange', router); 
