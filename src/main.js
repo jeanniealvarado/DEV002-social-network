@@ -21,13 +21,25 @@ template('inicioDeSesion', function () { //Se crea una función anónima
         registerGoogle(auth, provider)    
     })
 
-    // let signIn = document.getElementById('enviar');
-    // signIn.addEventListener ('click', (e) =>{
-    //     e.preventDefault();
-    //     signIn.href = '#/timeline';
-    // })
+     let signIn = document.getElementById('enviar');
+     signIn.addEventListener ('click', login);
+    
+        function login (e) {
+        e.preventDefault();
+        let email = document.getElementById('correo').value
+        let password = document.getElementById('password').value
+        if(email==''|| password ==''){
+            alert('Completa los datos requeridos')
+        }
+        else{
 
-})
+         return window.location = 'http://localhost:3000/#/timeline'
+        }
+    }
+    }) 
+
+
+
 
 template('register', function () { //Se crea una función anónima
 
