@@ -10,7 +10,7 @@ export const timeline = () => {
     let holaUsuaria = document.createElement('p');
     let section2 = document.createElement('section');
     let inputPost = document.createElement('textarea');
-    let botonEnviar = document.createElement('button');
+    let botonPublicar = document.createElement('button');
     let section3 = document.createElement('section');
     let nombrePost = document.createElement('p');
     let divPosted = document.createElement('div');
@@ -32,10 +32,13 @@ export const timeline = () => {
 
     section2.className = 'section-posting';
     inputPost.className = 'input-post';
-    botonEnviar.className = 'boton-enviar';
+    inputPost.placeholder= '¡Hola mundo!'
+    botonPublicar.className = 'boton-enviar';
+    botonPublicar.innerText='Publicar'
+    botonPublicar.type= 'submit'
 
     section2.appendChild(inputPost);
-    section2.appendChild(botonEnviar);
+    section2.appendChild(botonPublicar);
 
     section3.className = 'section-timeline';
     nombrePost.className = 'autora-post';
