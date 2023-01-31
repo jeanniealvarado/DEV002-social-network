@@ -26,13 +26,22 @@ export const timeline = () => {
   holaUsuaria.className = 'hola-Usuaria';
   eliminar.className = 'fa-solid fa-trash-can';
   editar.className = 'fa-regular fa-pen-to-square';
+<<<<<<< HEAD
   signOut.className = 'fa-solid fa-arrow-right-from-bracket';
+=======
+  signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-button';
+>>>>>>> df21a18482bf23e1d1c3cf3b8d075a8f2a46baa8
   section1.appendChild(logo);
   section1.appendChild(holaUsuaria);
 
   section2.className = 'section-posting';
   inputPost.className = 'input-post';
   inputPost.placeholder = '¡Hola mundo!';
+<<<<<<< HEAD
+=======
+  inputPost.cols = '50';
+  inputPost.rows = '4';
+>>>>>>> df21a18482bf23e1d1c3cf3b8d075a8f2a46baa8
   botonPublicar.className = 'boton-enviar';
   botonPublicar.innerText = 'Publicar';
   botonPublicar.type = 'submit';
@@ -56,6 +65,9 @@ export const timeline = () => {
   main.appendChild(section2);
   main.appendChild(section3);
 
+<<<<<<< HEAD
   signOut.className = 'sign-out-botton';
+=======
+>>>>>>> df21a18482bf23e1d1c3cf3b8d075a8f2a46baa8
   footer.appendChild(signOut);
 };
