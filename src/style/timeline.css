@@ -19,13 +19,28 @@ padding: 0;
 border-color: var(--complementario);
 height: auto;
 width: 300px;
+padding: 5px;
 margin-top: 30px;
+border-radius: 10px;
+border-width: 2px;
 }
 
 .boton-enviar{
-    padding: 5px;
-    margin-left: 80px;
+    width: 90px;
+    height: 30px;
+    margin-top: 5px;
+   /* margin-left: 80px;*/
+    border-radius: 15px;
+    margin-left: 210px;
+    background-color: var(--enfasis);
+    border: none;
 }
+
+.boton-enviar:hover{
+    cursor: pointer;
+    background-color: var(--complementario);
+}
+
 .section-timeline{
     /*width: 100%;*/
     height:45% ;

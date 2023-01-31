@@ -20,31 +20,38 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     e.preventDefault();
     registerGoogle(auth, provider);
   });
-
-  const signIn = document.getElementById('enviar');
-
-  const login = async (email, password) => {
-    signIn.addEventListener('click', login);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      window.location = 'http://localhost:3000/#/timeline';
-    } catch (error) {
-      throw error.message;
-    }
-  };
-  return login;
-
-//   function login(e) {
-//     e.preventDefault();
-//     const email = document.getElementById('correo').value;
-//     const password = document.getElementById('password').value;
-//     if (email == '' || password == '') {
-//       alert('Completa los datos requeridos');
-//     } else {
-//       return window.location = 'http://localhost:3000/#/timeline';
-//     }
-//   }
 });
+
+   //ESTA ES
+// const signIn = document.getElementById('enviar');
+
+// function login(e) {
+//   e.preventDefault();
+//   const email = document.getElementById('correo').value;
+//   const password = document.getElementById('password').value;
+//   if (email === '' || password === '') {
+//     alert('Completa los datos requeridos');
+//   }
+//   return window.location = 'http://localhost:3000/#/timeline';
+// }
+// signIn.addEventListener('click', login);
+
+//OTRA OPCIÓN
+
+// function login(email, password) {
+//   if (email === '' || password === '') {
+//     alert('Completa los datos requeridos');
+//   } else {
+//     return window.location = 'http://localhost:3000/#/timeline';
+//   }
+// }
+// const signIn = document.getElementById('enviar');
+// signIn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   const email = document.getElementById('correo').value;
+//   const password = document.getElementById('password').value;
+//   login(email, password);
+// });
 
 template('register', () => { // Se crea una función anónima
   register(); // Le asigna a la función anónima la función about()
@@ -54,12 +61,10 @@ template('register', () => { // Se crea una función anónima
     const email = document.getElementById('correo').value;
     // let usuaria = document.getElementById('usuaria').value
     const password = document.getElementById('password').value;
-    console.log(email);
-    console.log(password);
     registerFirebase(auth, email, password);
 
     // emailAutentication(auth, email)
-    if (email == '' || password == '') {
+    if (email === '' || password === '') {
       alert('Completa los datos requeridos');
     } else {
       alert('El correo de verificación ha sido enviado a su bandeja de entrada');

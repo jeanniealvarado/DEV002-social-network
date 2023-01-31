@@ -33,6 +33,8 @@ export const timeline = () => {
   section2.className = 'section-posting';
   inputPost.className = 'input-post';
   inputPost.placeholder = '¡Hola mundo!';
+  inputPost.cols = '50';
+  inputPost.rows = '4';
   botonPublicar.className = 'boton-enviar';
   botonPublicar.innerText = 'Publicar';
   botonPublicar.type = 'submit';
