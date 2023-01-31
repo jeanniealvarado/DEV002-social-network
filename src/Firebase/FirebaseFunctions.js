@@ -1,7 +1,11 @@
 import {
-  createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider,
+  createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
+  GoogleAuthProvider, getAuth, signInWithEmailAndPassword,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+
 // import { isSignInWithEmailLink, signInWithEmailLink } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+// initializeApp(firebaseConfig);
 
 export const registerFirebase = (auth, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -47,4 +51,9 @@ export const registerGoogle = (auth, provider) => {
       const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
     });
+};
+
+export {
+  initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
+  signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword,
 };

@@ -1,10 +1,11 @@
 // Este es el punto de entrada de tu aplicacion
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
 import { timeline } from './views/timeline.js';
-import { registerFirebase, registerGoogle } from './Firebase/FirebaseFunctions.js';
+import {
+  registerFirebase, registerGoogle, getAuth, GoogleAuthProvider, initializeApp,
+} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import { route, template, router } from './lib/Router.js';
 
@@ -21,15 +22,17 @@ template('inicioDeSesion', () => { // Se crea una función anónima
   });
 
   const signIn = document.getElementById('enviar');
+
   const login = async (email, password) => {
+    signIn.addEventListener('click', login);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      window.location = 'http://localhost:3000/#/timeline';
     } catch (error) {
       throw error.message;
     }
-    signIn.addEventListener('click', login);
-    window.location = 'http://localhost:3000/#/timeline';
   };
+  return login;
 
 //   function login(e) {
 //     e.preventDefault();
@@ -74,3 +77,5 @@ route('/timeline', 'timeline');
 
 window.addEventListener('load', router); // Con el evento load se ejecuta la función router
 window.addEventListener('hashchange', router);
+
+// export { login }
