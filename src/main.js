@@ -12,9 +12,23 @@ import { route, template, router } from './lib/Router.js';
 initializeApp(firebaseConfig);
 export const auth = getAuth();
 const provider = new GoogleAuthProvider();
+function login(email, password) {
+  if (email === '' || password === '') {
+    alert('Completa los datos requeridos');
+  } else {
+    return window.location = 'http://localhost:3000/#/timeline';
+  }
+}
 
 template('inicioDeSesion', () => { // Se crea una función anónima
   inicioDeSesion(); // Le asigna a la función anónima la función about()
+  const signIn = document.getElementById('enviar');
+  signIn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('correo').value;
+    const password = document.getElementById('password').value;
+    login(email, password);
+  });
   const google = document.getElementById('google');
   google.addEventListener('click', (e) => {
     e.preventDefault();
@@ -38,13 +52,7 @@ template('inicioDeSesion', () => { // Se crea una función anónima
 
 //OTRA OPCIÓN
 
-// function login(email, password) {
-//   if (email === '' || password === '') {
-//     alert('Completa los datos requeridos');
-//   } else {
-//     return window.location = 'http://localhost:3000/#/timeline';
-//   }
-// }
+
 // const signIn = document.getElementById('enviar');
 // signIn.addEventListener('click', (e) => {
 //   e.preventDefault();

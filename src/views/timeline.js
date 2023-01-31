@@ -26,7 +26,7 @@ export const timeline = () => {
   holaUsuaria.className = 'hola-Usuaria';
   eliminar.className = 'fa-solid fa-trash-can';
   editar.className = 'fa-regular fa-pen-to-square';
-  signOut.className = 'fa-solid fa-arrow-right-from-bracket';
+  signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-button';
   section1.appendChild(logo);
   section1.appendChild(holaUsuaria);
 
@@ -58,6 +58,5 @@ export const timeline = () => {
   main.appendChild(section2);
   main.appendChild(section3);
 
-  signOut.className = 'sign-out-botton';
   footer.appendChild(signOut);
 };
