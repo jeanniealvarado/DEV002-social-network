@@ -1,29 +1,13 @@
-// importamos la funcion que vamos a testear
-import { registerFirebase } from '../src/Firebase/FirebaseFunctions';
+import { registerFirebase } from '../src/Firebase/FirebaseFunctions.js';
+import { auth } from '../src/main.js';
 
-// describe('myFunction', () => {
-//   it('debería ser una función', () => {
-//     expect(typeof myFunction).toBe('function');
-//   });
-// });
+jest.mock('../src/Firebase/FirebaseFunctions.js');
 
-
-
-// describe('registerFirebase', () => {
-//   it('debería ser una función', () => {
-//     expect(typeof myFunction).toBe('function');
-//   });
-// });
-
-
-// describe('registerFirebase', () => {
-//   let email = 'correo@gmail.com';
-//   //let password = 'notarealpassword';
-//   let passwordVacio = '';
-//   //let emailVacio = '';
-
-//   it('debe mostrar un mensaje de error cuando no se entregue un mail como argumento', () => {
-//     expect(registerFirebase(auth, email, passwordVacio).toThrowError(TypeError))
-//   })
-
-//})
+describe('registerFirebase', () => {
+  it('debe retornar un objeto', () => {
+    const email = 'correo@gmail.com';
+    const password = 'password123';
+    // auth = getAuth();
+    expect(typeof registerFirebase(auth, email, password)).toBe('object');
+  });
+});
