@@ -7,14 +7,11 @@ import { registerFirebase } from '../src/Firebase/FirebaseFunctions';
 //   });
 // });
 
-
-
 // describe('registerFirebase', () => {
 //   it('debería ser una función', () => {
 //     expect(typeof myFunction).toBe('function');
 //   });
 // });
-
 
 // describe('registerFirebase', () => {
 //   let email = 'correo@gmail.com';
@@ -26,4 +23,4 @@ import { registerFirebase } from '../src/Firebase/FirebaseFunctions';
 //     expect(registerFirebase(auth, email, passwordVacio).toThrowError(TypeError))
 //   })
 
-//})
+// })
