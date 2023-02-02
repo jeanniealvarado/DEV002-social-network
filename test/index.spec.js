@@ -18,7 +18,7 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
   createUserWithEmailAndPassword: jest.fn((auth, email, password) =>
     // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     ({
-      email: 'correo@gmail.com',
+      email: 'correo@powerl.com',
       password: 'password123',
     })),
 }));
