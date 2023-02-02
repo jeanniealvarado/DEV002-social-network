@@ -1,36 +1,45 @@
 import {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, getAuth, signInWithEmailAndPassword,
+  GoogleAuthProvider, getAuth, signInWithEmailAndPassword
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+import { set, ref } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js'; //version
 
 // import { isSignInWithEmailLink, signInWithEmailLink } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 // initializeApp(firebaseConfig);
 
+//FUNCIÓN DE REGISTRO CON FIREBASE
 export const registerFirebase = (auth, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
+      set(ref(database, 'users/' + user.uid), {
+        username: username,
+        email: email
+      });
+      // console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
     })
-    .then(() => {
-      sendEmailVerification(auth.currentUser);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
+  };
 
-      //         if(password=== null|| email=== null){
-      // throw TypeError ('ingresa la información solicitada')
-      //         }
-    });
-};
+
+    //FUNCIÓN EMAIL DE VERIFICACIÓN
+    export const validateEmail = async (email) => {
+      
+      try{
+        await sendEmailVerification(auth.currentUser);
+        return Promise.resolve(userId)}
+      } catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        return Promise.reject(error)
+        //alert(errorMessage);
+  });
+  
 
 export const registerGoogle = (auth, provider) => {
   signInWithPopup(auth, provider)
