@@ -1,8 +1,9 @@
 import {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, getAuth, signInWithEmailAndPassword,
+  GoogleAuthProvider, getAuth, signInWithEmailAndPassword
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+import { set, ref } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js'; //version
 
 // import { isSignInWithEmailLink, signInWithEmailLink } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 // initializeApp(firebaseConfig);
@@ -11,23 +12,16 @@ export const registerFirebase = (auth, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-    })
-     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-    })
-    .then(() => {
       sendEmailVerification(auth.currentUser);
+			set(ref(database, 'users/' + user.uid), {
+        username: username,
+        email: email
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
-
-      //         if(password=== null|| email=== null){
-      // throw TypeError ('ingresa la información solicitada')
-      //         }
     });
 };
 
