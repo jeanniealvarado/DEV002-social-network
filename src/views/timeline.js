@@ -18,6 +18,7 @@ export const timeline = () => {
   const editar = document.createElement('i');
   const fecha = document.createElement('p');
   const signOut = document.createElement('i');
+  const buttonOut = document.createElement('button');
 
   section1.className = 'section-head';
   logo.className = 'logo-timeline';
@@ -26,16 +27,19 @@ export const timeline = () => {
   holaUsuaria.className = 'hola-Usuaria';
   eliminar.className = 'fa-solid fa-trash-can';
   editar.className = 'fa-regular fa-pen-to-square';
-  signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-button';
+  signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-icon';
   section1.appendChild(logo);
   section1.appendChild(holaUsuaria);
 
   section2.className = 'section-posting';
   inputPost.className = 'input-post';
+  inputPost.id = 'postear';
   inputPost.placeholder = '¡Hola mundo!';
   inputPost.cols = '50';
   inputPost.rows = '4';
+  inputPost.resize = 'none';
   botonPublicar.className = 'boton-enviar';
+  botonPublicar.id = 'publicar';
   botonPublicar.innerText = 'Publicar';
   botonPublicar.type = 'submit';
 
@@ -57,6 +61,8 @@ export const timeline = () => {
   main.appendChild(section1);
   main.appendChild(section2);
   main.appendChild(section3);
-
-  footer.appendChild(signOut);
+  buttonOut.id = 'userSignOut';
+  buttonOut.className = 'signOut-button';
+  footer.appendChild(buttonOut);
+  buttonOut.appendChild(signOut);
 };
