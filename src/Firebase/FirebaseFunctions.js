@@ -1,13 +1,9 @@
 import {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, getAuth, signInWithEmailAndPassword
-} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
-import { set, ref } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js'; //version
+  GoogleAuthProvider, getAuth, signInWithEmailAndPassword, initializeApp, set, ref
+} from './FirebaseImport.js';
 
-// import { isSignInWithEmailLink, signInWithEmailLink } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-// initializeApp(firebaseConfig);
-
+// FUNCIÓN REGISTRO EN FIREBASE
 export const registerFirebase = (auth, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -24,6 +20,8 @@ export const registerFirebase = (auth, email, password) => {
       alert(errorMessage);
     });
 };
+
+console.log(registerFirebase)
 
 export const registerGoogle = (auth, provider) => {
   signInWithPopup(auth, provider)
