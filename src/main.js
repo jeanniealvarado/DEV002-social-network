@@ -7,10 +7,12 @@ import { inicioDeSesion } from './views/InicioDeSesion.js';
 import { route, template, router } from './lib/Router.js';
 import {
   registerFirebase, registerGoogle, getAuth, GoogleAuthProvider, initializeApp, login,
+  databaseFirestore, getFirestore, logOut,
 } from './Firebase/FirebaseFunctions.js';
 
 initializeApp(firebaseConfig);
 export const auth = getAuth();
+const db = getFirestore();
 const provider = new GoogleAuthProvider();
 // function login(email, password) {
 //   if (email === '' || password === '') {
@@ -27,7 +29,9 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     e.preventDefault();
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
-    if (login(auth, email, password) === auth.currentUser) { return window.location = 'http://localhost:3000/#/timeline'; }
+    if (login(auth, email, password) === auth.currentUser) {
+      return window.location = 'http://localhost:3000/#/timeline';
+    }
     return inicioDeSesion();
   });
   const google = document.getElementById('google');
@@ -46,7 +50,6 @@ template('register', () => { // Se crea una función anónima
     // let usuaria = document.getElementById('usuaria').value
     const password = document.getElementById('password').value;
     registerFirebase(auth, email, password);
-
     // emailAutentication(auth, email)
     if (email === '' || password === '') {
       alert('Completa los datos requeridos');
@@ -58,6 +61,18 @@ template('register', () => { // Se crea una función anónima
 
 template('timeline', () => {
   timeline();
+  const publicar = document.getElementById('publicar');
+  const userLogout = document.getElementById('userSignOut');
+  publicar.addEventListener('click', (e) => {
+    e.preventDefault();
+    const post = document.getElementById('postear').value;
+    databaseFirestore(post, db);
+  });
+  userLogout.addEventListener('click', (e) => {
+    e.preventDefault();
+    logOut(auth);
+    return inicioDeSesion();
+  });
 });
 
 route('/', 'inicioDeSesion');

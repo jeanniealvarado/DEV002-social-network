@@ -1,6 +1,7 @@
 import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, signInWithEmailAndPassword, set, ref, getAuth,
+  GoogleAuthProvider, signInWithEmailAndPassword, set, ref, getAuth, addDoc, collection,
+  getFirestore, signOut,
 } from './FirebaseImport.js';
 
 // FUNCIÓN REGISTRO EN FIREBASE
@@ -54,7 +55,21 @@ export const registerGoogle = (auth, provider) => {
     // ...
     });
 };
+
+export const databaseFirestore = (post, db) => {
+  addDoc(collection(db, 'users'), { post });
+};
+
+export const logOut = (auth) => {
+  signOut(auth).then(() => {
+  // Sign-out successful.
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  // An error happened.
+  });
+};
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
-  signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword,
+  signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
 };
