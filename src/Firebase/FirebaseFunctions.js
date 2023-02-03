@@ -1,6 +1,6 @@
 import {
-  createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, getAuth, signInWithEmailAndPassword, initializeApp, set, ref
+  initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
+  GoogleAuthProvider, signInWithEmailAndPassword, set, ref, getAuth,
 } from './FirebaseImport.js';
 
 // FUNCIÓN REGISTRO EN FIREBASE
@@ -9,9 +9,9 @@ export const registerFirebase = (auth, email, password) => {
     .then((userCredential) => {
       const user = userCredential.user;
       sendEmailVerification(auth.currentUser);
-			set(ref(database, 'users/' + user.uid), {
-        username: username,
-        email: email
+      set(ref(database, `users/${user.uid}`), {
+        username,
+        email,
       });
     })
     .catch((error) => {
@@ -21,7 +21,18 @@ export const registerFirebase = (auth, email, password) => {
     });
 };
 
-console.log(registerFirebase)
+export const login = async (auth, email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+  return undefined;
+};
 
 export const registerGoogle = (auth, provider) => {
   signInWithPopup(auth, provider)
@@ -43,7 +54,6 @@ export const registerGoogle = (auth, provider) => {
     // ...
     });
 };
-
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword,

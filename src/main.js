@@ -3,22 +3,22 @@
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
 import { timeline } from './views/timeline.js';
-import {
-  registerFirebase, registerGoogle, getAuth, GoogleAuthProvider, initializeApp,
-} from './Firebase/FirebaseFunctions.js';
 import { inicioDeSesion } from './views/InicioDeSesion.js';
 import { route, template, router } from './lib/Router.js';
+import {
+  registerFirebase, registerGoogle, getAuth, GoogleAuthProvider, initializeApp, login,
+} from './Firebase/FirebaseFunctions.js';
 
 initializeApp(firebaseConfig);
 export const auth = getAuth();
 const provider = new GoogleAuthProvider();
-function login(email, password) {
-  if (email === '' || password === '') {
-    alert('Completa los datos requeridos');
-  } else {
-    return window.location = 'http://localhost:3000/#/timeline';
-  }
-}
+// function login(email, password) {
+//   if (email === '' || password === '') {
+//     alert('Completa los datos requeridos');
+//   } else {
+//     return window.location = 'http://localhost:3000/#/timeline';
+//   }
+// }
 
 template('inicioDeSesion', () => { // Se crea una función anónima
   inicioDeSesion(); // Le asigna a la función anónima la función about()
@@ -27,7 +27,8 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     e.preventDefault();
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
-    login(email, password);
+    if (login(auth, email, password) === auth.currentUser) { return window.location = 'http://localhost:3000/#/timeline'; }
+    return inicioDeSesion();
   });
   const google = document.getElementById('google');
   google.addEventListener('click', (e) => {
