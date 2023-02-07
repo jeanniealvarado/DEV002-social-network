@@ -10,5 +10,6 @@ import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/fireba
 export {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, getAuth, signInWithEmailAndPassword, set, ref, initializeApp, collection,
-  getFirestore, addDoc, signOut, updateProfile, onAuthStateChanged,
+  getFirestore, addDoc, signOut, updateProfile, onAuthStateChanged
+  ,
 };

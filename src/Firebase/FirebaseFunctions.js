@@ -7,6 +7,7 @@ import {
 
 // FUNCIÓN REGISTRO EN FIREBASE
 export const registerFirebase = async (auth, email, password, displayName) => {
+const textAreaPost = document.getElementById('postear')
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -20,7 +21,9 @@ export const registerFirebase = async (auth, email, password, displayName) => {
     });
 };
 
-// FUNCIÓN LOGIN CON MAIL Y CONTRASEÑA
+
+// FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
+
 export const login = async (auth, email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -34,21 +37,6 @@ export const login = async (auth, email, password) => {
   return undefined;
 };
 
-// FUNCIÓN CREAR CREDENCIAL CURRENT USER
-export const currentUser = {};
-export const stateChanged = (auth) => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser.email = user.email;
-      currentUser.uid = user.uid;
-      currentUser.displayName = user.displayName;
-      currentUser.userName = user.userName;
-      console.log(`user logged in ${user.email}`);
-    } else {
-      console.log('user logged out ');
-    }
-  });
-};
 
 // FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = (auth, provider) => {
@@ -72,10 +60,25 @@ export const registerGoogle = (auth, provider) => {
     });
 };
 
-export const databaseFirestore = (post, db) => {
-  addDoc(collection(db, 'users'), { post });
-};
+//        CREAR OTRA COLECCIÓN
 
+export const databaseFirestore = (post, db) => {
+  // .then((userCredential) => {
+    addDoc(collection(db,'users').doc(userCredential.user.uid).set( { post } ));
+
+  //    db.collection('users').doc(userCredential.user.uid).set({
+  //     post
+  //   })
+  // });
+//  .catch((error) => {
+//   const errorCode = error.code;
+//   const errorMessage = error.message;
+// An error happened.
+};
+// addDoc(collection(db, 'users').doc(userCredential.user.uid).set( { post } ));
+
+
+//         CERRAR SESIÓN
 export const logOut = (auth) => {
   signOut(auth).then(() => {
   // Sign-out successful.
@@ -85,6 +88,42 @@ export const logOut = (auth) => {
   // An error happened.
   });
 };
+
+// ESCRIBIR COLLECTION
+
+// class usuariaData {
+//   constructor(name, uid, posts) {
+//     this.name = auth.currentUser.displayName;
+//     this.uid = auth.currentUser.uid;
+//     this.post = post;
+//   }
+
+//   toString() {
+//     return `${this.name}, ${this.uid}, ${this.post}`;
+//   }
+// }
+
+// Firestore data converter
+// const usuariaConverter = {
+//   toFirestore: (usuariaData) => ({
+//     name: city.name,
+//     state: city.state,
+//     country: city.country,
+//   }),
+//   fromFirestore: (snapshot, options) => {
+//     const data = snapshot.data(options);
+//     return new City(data.name, data.state, data.country);
+//   },
+// };
+
+export const addPost = (post) => addDoc(collection(db, 'users'), {
+  post,
+  user: auth.currentUser.displayName,
+  uid: auth.currentUser.uid,
+  // likes: 0,
+  // likes: [],
+});
+
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
