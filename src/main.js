@@ -1,5 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
 
+//import { async } from 'regenerator-runtime';
 import firebaseConfig from './Firebase/ConfigFirebase.js';
 import { register } from './views/register.js';
 import { timeline } from './views/timeline.js';
@@ -7,7 +8,7 @@ import { inicioDeSesion } from './views/InicioDeSesion.js';
 import { route, template, router } from './lib/Router.js';
 import {
   registerFirebase, registerGoogle, getAuth, GoogleAuthProvider, initializeApp, login,
-  databaseFirestore, getFirestore, logOut,
+  databaseFirestore, getFirestore, logOut, stateChanged,
 } from './Firebase/FirebaseFunctions.js';
 
 initializeApp(firebaseConfig);
@@ -24,13 +25,14 @@ const provider = new GoogleAuthProvider();
 
 template('inicioDeSesion', () => { // Se crea una función anónima
   inicioDeSesion(); // Le asigna a la función anónima la función about()
+  stateChanged();
   const signIn = document.getElementById('enviar');
-  signIn.addEventListener('click', (e) => {
+  signIn.addEventListener('click', async (e) => {
     e.preventDefault();
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
     if (login(auth, email, password) === auth.currentUser) {
-      return window.location = 'http://localhost:3000/#/timeline';
+      return route('/timeline', 'timeline');
     }
     return inicioDeSesion();
   });
@@ -44,17 +46,21 @@ template('inicioDeSesion', () => { // Se crea una función anónima
 template('register', () => { // Se crea una función anónima
   register(); // Le asigna a la función anónima la función about()
   const submit = document.getElementById('enviar');
-  submit.addEventListener('click', (e) => {
+  submit.addEventListener('click', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('correo').value;
-    // let usuaria = document.getElementById('usuaria').value
-    const password = document.getElementById('password').value;
-    registerFirebase(auth, email, password);
+    try {
+      const email = document.getElementById('correo').value;
+      const usuaria = document.getElementById('usuaria').value;
+      const password = document.getElementById('password').value;
+      const userCredential = await registerFirebase(auth, email, password, usuaria);
+      console.log(userCredential);
+    } catch (error) {
     // emailAutentication(auth, email)
-    if (email === '' || password === '') {
-      alert('Completa los datos requeridos');
-    } else {
-      alert('El correo de verificación ha sido enviado a su bandeja de entrada');
+      if (email === '' || password === '') {
+        alert('Completa los datos requeridos');
+      } else {
+        alert('El correo de verificación ha sido enviado a su bandeja de entrada');
+      }
     }
   });
 });
@@ -68,6 +74,10 @@ template('timeline', () => {
     const post = document.getElementById('postear').value;
     databaseFirestore(post, db);
   });
+  // const postFilter = doc.id === user;
+  // if (postFilter) {
+  //   namePost
+  //}
   userLogout.addEventListener('click', (e) => {
     e.preventDefault();
     logOut(auth);

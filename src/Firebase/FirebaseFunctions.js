@@ -1,27 +1,26 @@
+// import { async } from 'regenerator-runtime';
 import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, signInWithEmailAndPassword, set, ref, getAuth, addDoc, collection,
-  getFirestore, signOut,
+  GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
+  getFirestore, signOut, updateProfile, onAuthStateChanged,
 } from './FirebaseImport.js';
 
 // FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = (auth, email, password) => {
+export const registerFirebase = async (auth, email, password, displayName) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      // Signed in
       sendEmailVerification(auth.currentUser);
-      set(ref(database, `users/${user.uid}`), {
-        username,
-        email,
-      });
+      updateProfile(auth.currentUser, { displayName });
+      return userCredential;
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
+      console.log(error.code);
+      console.log(error.message);
     });
 };
 
+// FUNCIÓN LOGIN CON MAIL Y CONTRASEÑA
 export const login = async (auth, email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -35,6 +34,23 @@ export const login = async (auth, email, password) => {
   return undefined;
 };
 
+// FUNCIÓN CREAR CREDENCIAL CURRENT USER
+export const currentUser = {};
+export const stateChanged = (auth) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser.email = user.email;
+      currentUser.uid = user.uid;
+      currentUser.displayName = user.displayName;
+      currentUser.userName = user.userName;
+      console.log(`user logged in ${user.email}`);
+    } else {
+      console.log('user logged out ');
+    }
+  });
+};
+
+// FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = (auth, provider) => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -72,4 +88,5 @@ export const logOut = (auth) => {
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
+  onAuthStateChanged,
 };

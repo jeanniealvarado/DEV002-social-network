@@ -1,7 +1,8 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signOut,
+  GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signOut, updateProfile,
+  onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 import { set, ref } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js';
 import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js';
@@ -9,5 +10,5 @@ import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/fireba
 export {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, getAuth, signInWithEmailAndPassword, set, ref, initializeApp, collection,
-  getFirestore, addDoc, signOut,
+  getFirestore, addDoc, signOut, updateProfile, onAuthStateChanged,
 };
