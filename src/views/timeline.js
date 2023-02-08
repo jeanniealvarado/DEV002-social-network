@@ -1,3 +1,11 @@
+// import { template } from '../lib/Router.js';
+import {
+  logOut, onGetPost, deletePost, getPost,
+}
+  from '../Firebase/FirebaseFunctions.js';
+import { auth, doc } from '../Firebase/FirebaseImport.js';
+import { inicioDeSesion } from './InicioDeSesion.js';
+
 const main = document.getElementById('main');
 const footer = document.getElementById('footer');
 
@@ -65,4 +73,88 @@ export const timeline = () => {
   buttonOut.className = 'signOut-button';
   footer.appendChild(buttonOut);
   buttonOut.appendChild(signOut);
+
+  //                  TEMPLATE TIMELINE
+
+  // template('timeline', () => {
+  //console.log('tem pla te');
+
+  // timeline();
+  const publicar = document.getElementById('publicar');
+  const userLogout = document.getElementById('userSignOut');
+  const sectionPostear = document.querySelector('section-posting');
+
+  //       FUNCIÓN LOGOUT
+  console.log('Función Logout');
+  userLogout.addEventListener('click', (e) => {
+    e.preventDefault();
+    logOut(auth);
+    return inicioDeSesion();
+  });
+  
+  let editStatus = false;
+  let id = '';
+  const postData = doc.data();
+
+  publicar.addEventListener('click', async (e) => {
+    e.preventDefault();
+    onGetPost((querySnapshot) => {
+      let html = '';
+
+      querySnapshot.forEach((doc) => {
+        html += `
+      <div>
+      <h3>${postData.description}</p>
+      <button class='btn-delete' data-id='${doc.id}'>Delete</button>
+      <button class='btn-edit' data-id='${doc.id}'>Edit</button>
+      </div>
+      `;
+      });
+
+      sectionPostear.innerHTML = html;
+
+      const btnsDelete = sectionPostear.querySelectorAll('.btn-delete');
+      btnsDelete.forEach((btn) => {
+        btn.addEventListener('click', ({ target: { dataset } }) => {
+          deletePost(dataset.id);
+        });
+      });
+
+      const btnsEdit = sectionPostear.querySelectorAll('.btn-edit');
+      btnsEdit.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          try {
+            const doc = await getPost(e.target.dataset.id);
+            const postDataEdit = doc.data();
+            const postear = document.getElementById('postear').value;
+
+            editStatus = true;
+            id = doc.id;
+
+            postear['btn-task-form'].innerText = 'Update';
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      });
+
+      //   try {
+      //     const post = document.getElementById('postear').value;
+      //     await addPost(post);
+      //     console.log(post);
+      //     publicaciones(post, db);
+      //     sectionPostear.reset();
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // });
+      // const postFilter = doc.id === user;
+      // if (postFilter) {
+      //   namePost
+      // }
+    });
+
+    
+  });
+  // });
 };

@@ -1,3 +1,7 @@
+import { registerGoogle, login } from '../Firebase/FirebaseFunctions.js';
+import { auth, provider } from '../Firebase/FirebaseImport.js';
+import { template } from '../lib/Router.js';
+
 const main = document.getElementById('main');
 const footer = document.getElementById('footer');
 
@@ -92,3 +96,27 @@ export const inicioDeSesion = () => {
 
   footer.appendChild(pFooter);
 };
+
+//             TEMPLATE LOGIN
+
+template('inicioDeSesion', () => { // Se crea una función anónima
+  inicioDeSesion(); // Le asigna a la función anónima la función about()
+  // stateChanged();
+  const signIn = document.getElementById('enviar');
+  signIn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('correo').value;
+    const password = document.getElementById('password').value;
+    console.log(email, password);
+    // try {
+    // const userCredentials = login(auth, email, password);
+    // console.log(userCredentials.user);
+    login(auth, email, password);
+    return window.location = 'http://localhost:3000/#/timeline';
+  });
+  const google = document.getElementById('google');
+  google.addEventListener('click', (e) => {
+    e.preventDefault();
+    registerGoogle(auth, provider);
+  });
+});

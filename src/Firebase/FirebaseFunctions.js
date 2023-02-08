@@ -1,41 +1,45 @@
+// import { async } from 'regenerator-runtime';
 import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
-  GoogleAuthProvider, signInWithEmailAndPassword, set, ref, getAuth, addDoc, collection,
-  getFirestore, signOut,
+  GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
+  getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
+  db, auth, provider, deleteDoc,
+  updateDoc, doc,
 } from './FirebaseImport.js';
 
-// FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = (auth, email, password) => {
+//           FUNCIÓN REGISTRO EN FIREBASE
+export const registerFirebase = async (auth, email, password, displayName) => {
+  const textAreaPost = document.getElementById('postear');
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      // Signed in
       sendEmailVerification(auth.currentUser);
-      set(ref(database, `users/${user.uid}`), {
-        username,
-        email,
-      });
+      updateProfile(auth.currentUser, { displayName });
+      return userCredential;
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
+      console.log(error.code);
+      console.log(error.message);
     });
 };
+
+//       FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
 
 export const login = async (auth, email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-    });
-  return undefined;
+  signInWithEmailAndPassword(auth, email, password);
+  //   .then((userCredential) => {
+  //     const user = userCredential.user;
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     alert(errorMessage);
+  //   });
+  // return undefined;
 };
 
-export const registerGoogle = (auth, provider) => {
+//          FUNCIÓN REGISTRO CON GOOGLE
+export const registerGoogle = (auth) => {
   signInWithPopup(auth, provider)
     .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -55,11 +59,31 @@ export const registerGoogle = (auth, provider) => {
     // ...
     });
 };
+//          MOSTRAR LOS POSTS
 
-export const databaseFirestore = (post, db) => {
+// Para guardar Posts
+export const publicaciones = (db, post) => {
   addDoc(collection(db, 'users'), { post });
 };
 
+// para obtener data de las colecciones
+export const getAllPosts = () => getDocs(collection(db, 'post'));
+
+// para actualizar en tiempo real
+export const onGetPost = (callback) => onSnapshot(collection(db, 'users'), callback);
+
+// para borrar los posts
+export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
+
+// para editar posts
+export const editPost = (id) => getDoc(doc(db, 'users', id));
+
+// actualizar publicaciones
+export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
+export const getPost = (id) => getDoc(doc(db, 'publicaciones', id));
+export const editLike = (id) => getDoc(doc(db, 'publicaciones', id));
+
+//         CERRAR SESIÓN
 export const logOut = (auth) => {
   signOut(auth).then(() => {
   // Sign-out successful.
@@ -69,7 +93,44 @@ export const logOut = (auth) => {
   // An error happened.
   });
 };
+
+// ESCRIBIR COLLECTION
+
+// class usuariaData {
+//   constructor(name, uid, posts) {
+//     this.name = auth.currentUser.displayName;
+//     this.uid = auth.currentUser.uid;
+//     this.post = post;
+//   }
+
+//   toString() {
+//     return `${this.name}, ${this.uid}, ${this.post}`;
+//   }
+// }
+
+// Firestore data converter
+// const usuariaConverter = {
+//   toFirestore: (usuariaData) => ({
+//     name: city.name,
+//     state: city.state,
+//     country: city.country,
+//   }),
+//   fromFirestore: (snapshot, options) => {
+//     const data = snapshot.data(options);
+//     return new City(data.name, data.state, data.country);
+//   },
+// };
+
+export const addPost = (post) => addDoc(collection(db, 'users'), {
+  post,
+  user: auth.currentUser.displayName,
+  uid: auth.currentUser.uid,
+  // likes: 0,
+  // likes: [],
+});
+
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
+  onAuthStateChanged,
 };
