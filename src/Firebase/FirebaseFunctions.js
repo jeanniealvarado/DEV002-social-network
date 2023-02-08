@@ -2,12 +2,14 @@
 import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
-  getFirestore, signOut, updateProfile, onAuthStateChanged,
+  getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
+  db, auth, provider, deleteDoc,
+  updateDoc, doc,
 } from './FirebaseImport.js';
 
-// FUNCIÓN REGISTRO EN FIREBASE
+//           FUNCIÓN REGISTRO EN FIREBASE
 export const registerFirebase = async (auth, email, password, displayName) => {
-const textAreaPost = document.getElementById('postear')
+  const textAreaPost = document.getElementById('postear');
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -36,9 +38,8 @@ export const login = async (auth, email, password) => {
   // return undefined;
 };
 
-
-// FUNCIÓN REGISTRO CON GOOGLE
-export const registerGoogle = (auth, provider) => {
+//          FUNCIÓN REGISTRO CON GOOGLE
+export const registerGoogle = (auth) => {
   signInWithPopup(auth, provider)
     .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -58,24 +59,29 @@ export const registerGoogle = (auth, provider) => {
     // ...
     });
 };
+//          MOSTRAR LOS POSTS
 
-//        CREAR OTRA COLECCIÓN
-
-export const databaseFirestore = (post, db) => {
-  // .then((userCredential) => {
-    addDoc(collection(db,'users').doc(userCredential.user.uid).set( { post } ));
-
-  //    db.collection('users').doc(userCredential.user.uid).set({
-  //     post
-  //   })
-  // });
-//  .catch((error) => {
-//   const errorCode = error.code;
-//   const errorMessage = error.message;
-// An error happened.
+// Para guardar Posts
+export const publicaciones = (db, post) => {
+  addDoc(collection(db, 'users'), { post });
 };
-// addDoc(collection(db, 'users').doc(userCredential.user.uid).set( { post } ));
 
+// para obtener data de las colecciones
+export const getAllPosts = () => getDocs(collection(db, 'post'));
+
+// para actualizar en tiempo real
+export const onGetPost = (callback) => onSnapshot(collection(db, 'users'), callback);
+
+// para borrar los posts
+export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
+
+// para editar posts
+export const editPost = (id) => getDoc(doc(db, 'users', id));
+
+// actualizar publicaciones
+export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
+export const getPost = (id) => getDoc(doc(db, 'publicaciones', id));
+export const editLike = (id) => getDoc(doc(db, 'publicaciones', id));
 
 //         CERRAR SESIÓN
 export const logOut = (auth) => {
