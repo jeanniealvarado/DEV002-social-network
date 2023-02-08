@@ -33,17 +33,36 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     e.preventDefault();
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
-    if (login(auth, email, password) === auth.currentUser) {
-      return route('/timeline', 'timeline');
-    }
-    return inicioDeSesion();
-  });
-  const google = document.getElementById('google');
-  google.addEventListener('click', (e) => {
-    e.preventDefault();
-    registerGoogle(auth, provider);
+    console.log(email, password);
+    // try {
+    // const userCredentials = login(auth, email, password);
+    // console.log(userCredentials.user);
+    login(auth, email, password);
+    return window.location = 'http://localhost:3000/#/timeline';
+     // Cambiar a window.history.pushstate
+    //route('/timeline', 'timeline');
+    // } catch (error) {
+    // if (error.code === 'auth/user-not-found') {
+    //   alert('usuario NO encontrado');
+    // } else if (error.code === 'auth/wrong-password') {
+    //   alert('Contraseña incorrecta');
+    // } else if (error.code) {
+    //   console.log(error.code);
+    // }
   });
 });
+
+//     if (login(auth, email, password) === auth.currentUser) {
+//       return route('/timeline', 'timeline');
+//     }
+//     return inicioDeSesion();
+//   });
+//   const google = document.getElementById('google');
+//   google.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     registerGoogle(auth, provider);
+//   });
+// });
 
 //                 TEMPLATE REGISTER
 
@@ -120,5 +139,3 @@ route('/timeline', 'timeline');
 
 window.addEventListener('load', router); // Con el evento load se ejecuta la función router
 window.addEventListener('hashchange', router);
-
-// export { login }

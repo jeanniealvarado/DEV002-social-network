@@ -21,20 +21,19 @@ const textAreaPost = document.getElementById('postear')
     });
 };
 
-
-// FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
+//       FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
 
 export const login = async (auth, email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-    });
-  return undefined;
+  signInWithEmailAndPassword(auth, email, password);
+  //   .then((userCredential) => {
+  //     const user = userCredential.user;
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     alert(errorMessage);
+  //   });
+  // return undefined;
 };
 
 
