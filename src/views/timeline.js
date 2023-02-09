@@ -1,6 +1,6 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost,
+  logOut, publicaciones, onGetPost, deletePost, editPost, getPost,
 }
   from '../Firebase/FirebaseFunctions.js';
 import { auth, doc } from '../Firebase/FirebaseImport.js';
@@ -22,7 +22,7 @@ export const timeline = () => {
   const section3 = document.createElement('section');
   const nombrePost = document.createElement('p');
 
-  // const formPost = document.createElement('form');
+  const formPost = document.createElement('form');
   const divPosted = document.createElement('div');
   const eliminar = document.createElement('i');
   const editar = document.createElement('i');
@@ -52,9 +52,10 @@ export const timeline = () => {
   botonPublicar.id = 'publicar';
   botonPublicar.innerText = 'Publicar';
   botonPublicar.type = 'submit';
-
-  section2.appendChild(inputPost);
-  section2.appendChild(botonPublicar);
+  formPost.id = 'formPost';
+  formPost.appendChild(inputPost);
+  formPost.appendChild(botonPublicar);
+  section2.appendChild(formPost);
 
   section3.className = 'section-timeline';
   nombrePost.className = 'autora-post';
@@ -79,9 +80,14 @@ export const timeline = () => {
   const postedDiv = document.getElementById('divPosted');
 
   const arrayPost = [];
+  const postear = document.getElementById('postear');
+  const publicar = document.getElementById('publicar');
+  const userLogout = document.getElementById('userSignOut');
+  const formulario = document.getElementById('formPost')
+  let editStatus = false;
 
   const postPublisher = async () => {
-    //const querySnapshot = await getAllPosts();
+    // const querySnapshot = await getAllPosts();
     onGetPost((querySnapshot) => {
       let html = '';
 
@@ -92,28 +98,43 @@ export const timeline = () => {
             <p>${postData.createdDateTime}</p>
             <p>${postData.post}</p>
             <button class='btn-delete' data-id='${doc.id}'>Delete</button>
-         </div>
+            <button class='btn-edit' data-id='${doc.id}'>Edit</button>
+            </div>
        `;
       });
       postedDiv.innerHTML = html;
       const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
-      btnsDelete.forEach(btn => {
-        btn.addEventListener('click', ({target: { dataset }}) => {
+      btnsDelete.forEach((btn) => {
+        btn.addEventListener('click', ({ target: { dataset } }) => {
           deletePost(dataset.id);
-        })
-      })
+        });
+      });
+      const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
+      btnsEdit.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const doc = await getPost(e.target.dataset.id);
+          const postData = doc.data();
+         formulario['postear'].value = postData.post;
+
+          editStatus = true;
+        });
+      });
     });
   };
   //                  TEMPLATE TIMELINE
-  const postear = document.getElementById('postear');
-  const publicar = document.getElementById('publicar');
-  const userLogout = document.getElementById('userSignOut');
-  // const sectionPostear = document.querySelector('section-posting');
   publicar.addEventListener('click', async () => {
     console.log(postear.value);
-    await publicaciones(postear.value);
+    const postDescription = formulario["postear"];
     await postPublisher();
+
+    if (editStatus) {
+      console.log('updating');
+    } else {
+      await publicaciones(postDescription.value);
+    }
+    formulario.reset();
   });
+
   //       FUNCIÓN LOGOUT
   console.log('Función Logout');
   userLogout.addEventListener('click', (e) => {
