@@ -76,20 +76,20 @@ export const register = () => {
 //                 TEMPLATE REGISTER
 
 template('register', () => { // Se crea una función anónima
-register(); // Le asigna a la función anónima la función about()
-const submit = document.getElementById('enviar');
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('correo').value;
-  // let usuaria = document.getElementById('usuaria').value
-  const password = document.getElementById('password').value;
-  registerFirebase(auth, email, password);
-  // emailAutentication(auth, email)
-  if (email === '' || password === '') {
-    alert('Completa los datos requeridos');
-  } else {
-    alert('El correo de verificación ha sido enviado a su bandeja de entrada');
-  }
+  register(); // Le asigna a la función anónima la función about()
+  const submit = document.getElementById('enviar');
+  submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('correo').value;
+    // let usuaria = document.getElementById('usuaria').value
+    const password = document.getElementById('password').value;
+    registerFirebase(auth, email, password);
+    // emailAutentication(auth, email)
+    if (email === '' || password === '') {
+      alert('Completa los datos requeridos');
+    } else {
+      alert('El correo de verificación ha sido enviado a su bandeja de entrada');
+    }
 
   //   const submit = document.getElementById('enviar');
   //   submit.addEventListener('click', async (e) => {
@@ -107,5 +107,5 @@ submit.addEventListener('click', (e) => {
   //       } else {
   //         alert('El correo de verificación ha sido enviado a su bandeja de entrada');
   //       }
+  });
 });
- });

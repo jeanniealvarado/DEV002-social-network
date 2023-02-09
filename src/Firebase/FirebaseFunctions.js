@@ -4,12 +4,11 @@ import {
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
   db, auth, provider, deleteDoc,
-  updateDoc, doc,
+  updateDoc, doc, Timestamp,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = async (auth, email, password, displayName) => {
-  const textAreaPost = document.getElementById('postear');
+export const registerFirebase = async (email, password, displayName) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -25,7 +24,7 @@ export const registerFirebase = async (auth, email, password, displayName) => {
 
 //       FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
 
-export const login = async (auth, email, password) => {
+export const login = async (email, password) => {
   signInWithEmailAndPassword(auth, email, password);
   //   .then((userCredential) => {
   //     const user = userCredential.user;
@@ -39,7 +38,7 @@ export const login = async (auth, email, password) => {
 };
 
 //          FUNCIÓN REGISTRO CON GOOGLE
-export const registerGoogle = (auth) => {
+export const registerGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -62,12 +61,23 @@ export const registerGoogle = (auth) => {
 //          MOSTRAR LOS POSTS
 
 // Para guardar Posts
-export const publicaciones = (db, post) => {
-  addDoc(collection(db, 'users'), { post });
+export const publicaciones = (post) => {
+  addDoc(collection(db, 'users'), {
+    post,
+    //name: auth.currentUser.displayName,
+    //uid: auth.currentUser.uid,
+    likes: [],
+    createdDateTime: Timestamp.fromDate(new Date()),
+  });
 };
-
+export const saveUser = (name, uid, email) => addDoc(collection(db, 'users'), {
+  name,
+  uid,
+  email,
+  createdDateTime: Timestamp.fromDate(new Date()),
+});
 // para obtener data de las colecciones
-export const getAllPosts = () => getDocs(collection(db, 'post'));
+export const getAllPosts = () => getDocs(collection(db, 'users'));
 
 // para actualizar en tiempo real
 export const onGetPost = (callback) => onSnapshot(collection(db, 'users'), callback);
@@ -80,8 +90,12 @@ export const editPost = (id) => getDoc(doc(db, 'users', id));
 
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
-export const getPost = (id) => getDoc(doc(db, 'publicaciones', id));
-export const editLike = (id) => getDoc(doc(db, 'publicaciones', id));
+export const getPost = (id) => getDoc(doc(db, 'users', id));
+export const editLike = (id) => getDoc(doc(db, 'users', id));
+export const datePost = (querySnapshot) => {
+  const q = query(collection(db, 'tasks'), orderBy('createdDateTime', 'desc'));
+  onSnapshot(q, querySnapshot);
+};
 
 //         CERRAR SESIÓN
 export const logOut = (auth) => {
@@ -121,13 +135,13 @@ export const logOut = (auth) => {
 //   },
 // };
 
-export const addPost = (post) => addDoc(collection(db, 'users'), {
-  post,
-  user: auth.currentUser.displayName,
-  uid: auth.currentUser.uid,
-  // likes: 0,
-  // likes: [],
-});
+// export const addPost = (post) => addDoc(collection(db, 'users'), {
+//   post,
+//   user: auth.currentUser.displayName,
+//   uid: auth.currentUser.uid,
+//   // likes: 0,
+//   // likes: [],
+// });
 
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,

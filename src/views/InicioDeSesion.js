@@ -108,9 +108,6 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
     console.log(email, password);
-    // try {
-    // const userCredentials = login(auth, email, password);
-    // console.log(userCredentials.user);
     login(auth, email, password);
     return window.location = 'http://localhost:3000/#/timeline';
   });
