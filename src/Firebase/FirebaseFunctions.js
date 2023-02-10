@@ -4,7 +4,7 @@ import {
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
   db, auth, provider, deleteDoc,
-  updateDoc, doc, Timestamp,
+  updateDoc, doc, Timestamp, arrayUnion, arrayRemove,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
@@ -37,6 +37,10 @@ export const login = async (email, password) => {
   // return undefined;
 };
 
+//          OBSERVADOR
+export const userState = (user) => onAuthStateChanged(auth, user);
+export const user1 = () => auth.currentUser;
+
 //          FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = () => {
   signInWithPopup(auth, provider)
@@ -58,14 +62,39 @@ export const registerGoogle = () => {
     // ...
     });
 };
+
+// -----LIKES----------------------
+
+export const giveLike = (id, nuevoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayUnion(
+        nuevoLike,
+      ),
+  });
+  // .then(() => console.log("+1 like"))
+  // .catch((error) => console.error("Error", error));
+};
+
+export const disLike = (id, viejoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayRemove(
+        viejoLike,
+      ),
+  });
+  // .then(() => console.log("-1 like"))
+  // .catch((error) => console.error("Error", error));
+};
+
 //          MOSTRAR LOS POSTS
 
 // Para guardar Posts
 export const publicaciones = (post) => {
   addDoc(collection(db, 'users'), {
     post,
-    //name: auth.currentUser.displayName,
-    //uid: auth.currentUser.uid,
+    // name: auth.currentUser.displayName,
+    // uid: auth.currentUser.uid,
     likes: [],
     createdDateTime: Timestamp.fromDate(new Date()),
   });
@@ -87,7 +116,6 @@ export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 
 // para editar posts
 export const editPost = (id) => getDoc(doc(db, 'users', id));
-
 
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
