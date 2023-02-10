@@ -1,6 +1,6 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost, editPost, getPost,
+  logOut, publicaciones, onGetPost, deletePost, editPost, getPost, updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
 import { auth, doc } from '../Firebase/FirebaseImport.js';
@@ -109,12 +109,13 @@ export const timeline = () => {
           deletePost(dataset.id);
         });
       });
+
       const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
       btnsEdit.forEach((btn) => {
         btn.addEventListener('click', async (e) => {
           const doc = await getPost(e.target.dataset.id);
           const postData = doc.data();
-         formulario['postear'].value = postData.post;
+          formulario['postear'].value = postData.post;
 
           editStatus = true;
         });
@@ -128,6 +129,7 @@ export const timeline = () => {
     await postPublisher();
 
     if (editStatus) {
+      updateNotes(postDescription.value);
       console.log('updating');
     } else {
       await publicaciones(postDescription.value);
