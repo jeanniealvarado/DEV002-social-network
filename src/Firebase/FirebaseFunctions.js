@@ -88,6 +88,7 @@ export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 // para editar posts
 export const editPost = (id) => getDoc(doc(db, 'users', id));
 
+
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
 export const getPost = (id) => getDoc(doc(db, 'users', id));
@@ -146,5 +147,5 @@ export const logOut = (auth) => {
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
-  onAuthStateChanged,
+  onAuthStateChanged, doc,
 };
