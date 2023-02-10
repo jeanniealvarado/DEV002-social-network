@@ -1,11 +1,13 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost, editPost, getPost, updateNotes,
+  logOut, publicaciones, onGetPost, deletePost, editPost, getPost,
+  updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
 import { auth, doc } from '../Firebase/FirebaseImport.js';
 import { inicioDeSesion } from './InicioDeSesion.js';
 // onGetPost, deletePost, getPost, publicaciones
+
 const main = document.getElementById('main');
 const footer = document.getElementById('footer');
 
@@ -77,14 +79,17 @@ export const timeline = () => {
   buttonOut.className = 'signOut-button';
   footer.appendChild(buttonOut);
   buttonOut.appendChild(signOut);
+
+
   const postedDiv = document.getElementById('divPosted');
 
   const arrayPost = [];
   const postear = document.getElementById('postear');
   const publicar = document.getElementById('publicar');
   const userLogout = document.getElementById('userSignOut');
-  const formulario = document.getElementById('formPost')
+  const formulario = document.getElementById('formPost');
   let editStatus = false;
+  let id = '';
 
   const postPublisher = async () => {
     // const querySnapshot = await getAllPosts();
@@ -115,24 +120,32 @@ export const timeline = () => {
         btn.addEventListener('click', async (e) => {
           const doc = await getPost(e.target.dataset.id);
           const postData = doc.data();
-          formulario['postear'].value = postData.post;
+          formulario.postear.value = postData.post; //¿El problema es aquí?
 
-          editStatus = true;
+         // taskForm['task-title'].value = task.title;
+          editStatus = true
+          id = doc.id;
+
+          formulario['publicar'].innerText = 'Update';
         });
       });
     });
   };
   //                  TEMPLATE TIMELINE
   publicar.addEventListener('click', async () => {
-    console.log(postear.value);
-    const postDescription = formulario["postear"];
+   // e.preventDefault();
+    //console.log(postear.value);
+
+    const postDescription = formulario['postear'];
     await postPublisher();
 
-    if (editStatus) {
-      updateNotes(postDescription.value);
-      console.log('updating');
-    } else {
+    if (!editStatus) {
       await publicaciones(postDescription.value);
+    } else {
+      await updateNotes(id, { post: postDescription.value });
+      //  console.log('updating');
+
+      editStatus = false;
     }
     formulario.reset();
   });
