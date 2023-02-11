@@ -98,7 +98,7 @@ export const timeline = () => {
       querySnapshot.forEach((doc) => {
         const postData = doc.data();
         html += `
-         <div>
+         <div class = 'post-foreach'>
             <p>${postData.createdDateTime}</p>
             <p>${postData.post}</p>
             <button class='btn-delete' data-id='${doc.id}'>Delete</button>
