@@ -4,7 +4,7 @@ import {
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
   db, auth, provider, deleteDoc,
-  updateDoc, doc, Timestamp,
+  updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
@@ -37,6 +37,9 @@ export const login = async (email, password) => {
   // return undefined;
 };
 
+export const userState = (user) => onAuthStateChanged(auth, user);
+export const user1 = () => auth.currentUser;
+
 //          FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = () => {
   signInWithPopup(auth, provider)
@@ -57,6 +60,29 @@ export const registerGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
     });
+};
+
+
+// -----LIKES----------------------
+
+export const giveLike = (id, nuevoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayUnion(
+        nuevoLike,
+      ),
+  });
+  // .then(() => console.log("+1 like"))
+  // .catch((error) => console.error("Error", error));
+};
+
+export const disLike = (id, viejoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayRemove(
+        viejoLike,
+      ),
+  });
 };
 //          MOSTRAR LOS POSTS
 

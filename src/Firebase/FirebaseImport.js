@@ -10,7 +10,7 @@ import { set, ref } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-dat
 
 import {
   getFirestore, collection, addDoc, getDoc, getDocs, onSnapshot, deleteDoc,
-  updateDoc, doc, Timestamp,
+  updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 }
   from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js';
 
@@ -20,7 +20,7 @@ export {
   createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, getAuth, signInWithEmailAndPassword, set, ref, initializeApp, collection,
   getFirestore, addDoc, signOut, updateProfile, onAuthStateChanged, getDoc, onSnapshot, getDocs,
-  deleteDoc, updateDoc, doc, Timestamp,
+  deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 };
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
