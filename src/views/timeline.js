@@ -130,7 +130,7 @@ export const timeline = () => {
     });
   };
 
-  //                  DOM POST PT 1
+  //                  DOM POST PT 1     AQUÍ OH
 
   // espera a que DOM se cargue completamente
   window.addEventListener('DOMContentLoaded', async () => {
@@ -147,9 +147,9 @@ export const timeline = () => {
         let likeSrc = '';
         const likeImg = () => {
           if (currentLike === -1) {
-            likeSrc = 'imagenes/dislike.png';
+            likeSrc = '/*aquí va el icon*/';
           } else {
-            likeSrc = 'imagenes/like.png';
+            likeSrc = '/*aquí va el icon*/';
           }
         };
         likeImg();
@@ -197,7 +197,7 @@ export const timeline = () => {
     formulario.reset();
   });
 
-  //                  DOM POST PT 2
+  //                  DOM POST PT 2    AQUÍ OH
 
   const userId = user1().uid;
   const likeBtn = taskContainer.querySelectorAll('.like');

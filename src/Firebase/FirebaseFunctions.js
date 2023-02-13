@@ -4,7 +4,7 @@ import {
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
   db, auth, provider, deleteDoc,
-  updateDoc, doc, Timestamp, arrayUnion, arrayRemove,
+  updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
@@ -37,7 +37,6 @@ export const login = async (email, password) => {
   // return undefined;
 };
 
-//          OBSERVADOR
 export const userState = (user) => onAuthStateChanged(auth, user);
 export const user1 = () => auth.currentUser;
 
@@ -63,29 +62,6 @@ export const registerGoogle = () => {
     });
 };
 
-// -----LIKES----------------------
-
-export const giveLike = (id, nuevoLike) => {
-  updateDoc(doc(db, 'tasks', id), {
-    likes:
-      arrayUnion(
-        nuevoLike,
-      ),
-  });
-  // .then(() => console.log("+1 like"))
-  // .catch((error) => console.error("Error", error));
-};
-
-export const disLike = (id, viejoLike) => {
-  updateDoc(doc(db, 'tasks', id), {
-    likes:
-      arrayRemove(
-        viejoLike,
-      ),
-  });
-  // .then(() => console.log("-1 like"))
-  // .catch((error) => console.error("Error", error));
-};
 
 //          MOSTRAR LOS POSTS
 
@@ -124,6 +100,28 @@ export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   const q = query(collection(db, 'tasks'), orderBy('createdDateTime', 'desc'));
   onSnapshot(q, querySnapshot);
+};
+
+// -----LIKES----------------------
+
+export const giveLike = (id, nuevoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayUnion(
+        nuevoLike,
+      ),
+  });
+  // .then(() => console.log("+1 like"))
+  // .catch((error) => console.error("Error", error));
+};
+
+export const disLike = (id, viejoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayRemove(
+        viejoLike,
+      ),
+  });
 };
 
 //         CERRAR SESIÓN
@@ -175,5 +173,5 @@ export const logOut = (auth) => {
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
-  onAuthStateChanged, doc,
+  onAuthStateChanged,
 };
