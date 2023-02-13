@@ -67,10 +67,12 @@ export const registerGoogle = () => {
 
 // Para guardar Posts
 export const publicaciones = (post) => {
+ // const auth = getAuth();
+ console.log(auth.currentUser);
   addDoc(collection(db, 'users'), {
     post,
-    // name: auth.currentUser.displayName,
-    // uid: auth.currentUser.uid,
+    name: auth.currentUser.displayName,
+    userID: auth.currentUser.uid,
     likes: [],
     createdDateTime: Timestamp.fromDate(new Date()),
   });
