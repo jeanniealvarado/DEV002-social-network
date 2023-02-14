@@ -3,7 +3,7 @@ import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
-  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
+  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion, query, orderBy,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
@@ -72,33 +72,37 @@ export const publicaciones = (post) => {
     createdDateTime: Timestamp.fromDate(new Date()),
   });
 };
-export const saveUser = (name, uid, email) => addDoc(collection(db, 'users'), {
-  name,
-  uid,
-  email,
-  createdDateTime: Timestamp.fromDate(new Date()),
-});
+// export const saveUser = (name, uid, email) => addDoc(collection(db, 'users'), {
+//   name,
+//   uid,
+//   email,
+//   createdDateTime: Timestamp.fromDate(new Date()),
+// });
 // para obtener data de las colecciones
 export const getAllPosts = () => getDocs(collection(db, 'users'));
 
 // para actualizar en tiempo real
-export const onGetPost = (callback) => onSnapshot(collection(db, 'users'), callback);
+export const onGetPost = (querySnapshot) => onSnapshot(collection(db, 'users'), querySnapshot);
 
 // para borrar los posts
 export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 
 // para editar posts
 export const editPost = (id) => getDoc(doc(db, 'users', id));
-
+export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
-  const q = query(collection(db, 'tasks'), orderBy('createdDateTime', 'desc'));
   onSnapshot(q, querySnapshot);
 };
-
+// collection(db, 'users').orderBy('fecha_creacion', 'desc').get()
+//   .then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       console.log(`${doc.id} => ${doc.data()}`);
+//     });
+//   });
 // -----LIKES----------------------
 
 export const giveLike = (id, nuevoLike) => {
