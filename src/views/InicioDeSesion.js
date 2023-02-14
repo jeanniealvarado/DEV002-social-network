@@ -111,13 +111,13 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     const promesaLogin = login(email, password);
     promesaLogin
       .then((resultado) => {
-        console.log(resultado)
+        console.log(resultado);
         window.location = 'http://localhost:3000/#/timeline';
       // Función para manejar el nuevo cambio de ruta
       })
-      .catch((error)=>{
-        console.log(error)
-        alert('Usuaria no encontrada')
+      .catch((error)=> {
+        console.log(error);
+        alert('Usuaria no encontrada');
       });
   });
   const google = document.getElementById('google');

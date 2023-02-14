@@ -1,6 +1,6 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost, editPost, getPost,
+  logOut, publicaciones, onGetPost, deletePost, editPost, getPost, datePost,
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
@@ -92,7 +92,7 @@ export const timeline = () => {
 
   // const postPublisher = async () => {
   // const querySnapshot = await getAllPosts();
-  onGetPost((querySnapshot) => {
+  datePost((querySnapshot) => {
     let html = '';
 
     querySnapshot.forEach((doc) => {
