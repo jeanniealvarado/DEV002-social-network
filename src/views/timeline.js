@@ -174,7 +174,7 @@ export const timeline = () => {
   //       <img class="like" data-id="${doc.id}" src='${likeSrc}' width=30px>
   //       <p class="contadorLike" data-id="${doc.id}"> ${numero} Me encanta</p>
   //       </div>
-  //       </section>  
+  //       </section>
   //       `;
   //     });
   //     taskContainer.innerHTML = divContain;
@@ -182,9 +182,10 @@ export const timeline = () => {
   // });
 
   //                  TEMPLATE TIMELINE
-  publicar.addEventListener('click', async () => {
+  publicar.addEventListener('click', async (e) => {
+    e.preventDefault ();
     const postDescription = formulario.postear;
-    // await postPublisher();
+    //await postPublisher();
 
     if (!editStatus) {
       await publicaciones(postDescription.value);

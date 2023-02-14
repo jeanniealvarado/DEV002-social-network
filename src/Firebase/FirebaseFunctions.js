@@ -3,22 +3,23 @@ import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
-  db, auth, provider, deleteDoc,
-  updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
+  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = async (email, password, displayName) => {
+export const registerFirebase = async (email, password, name) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
+      const user = userCredential.user;
       sendEmailVerification(auth.currentUser);
-      updateProfile(auth.currentUser, { displayName });
-      return userCredential;
+      updateProfile(auth.currentUser, { displayName: name });
+    //  return userCredential;
     })
     .catch((error) => {
       console.log(error.code);
       console.log(error.message);
+    //  alert(errorMessage);
     });
 };
 
@@ -26,17 +27,9 @@ export const registerFirebase = async (email, password, displayName) => {
 
 export const login = async (email, password) => {
   signInWithEmailAndPassword(auth, email, password);
-  //   .then((userCredential) => {
-  //     const user = userCredential.user;
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     alert(errorMessage);
-  //   });
-  // return undefined;
 };
 
+//                 OBSERVADOR
 export const userState = (user) => onAuthStateChanged(auth, user);
 export const user1 = () => auth.currentUser;
 
@@ -62,13 +55,12 @@ export const registerGoogle = () => {
     });
 };
 
-
 //          MOSTRAR LOS POSTS
 
 // Para guardar Posts
 export const publicaciones = (post) => {
- // const auth = getAuth();
- console.log(auth.currentUser);
+  // const auth = getAuth();
+  console.log(auth.currentUser);
   addDoc(collection(db, 'users'), {
     post,
     name: auth.currentUser.displayName,
@@ -175,5 +167,5 @@ export const logOut = (auth) => {
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,
   signInWithPopup, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, getFirestore,
-  onAuthStateChanged,
+  onAuthStateChanged, doc,
 };
