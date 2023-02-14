@@ -8,13 +8,14 @@ import {
 
 //           FUNCIÓN REGISTRO EN FIREBASE
 export const registerFirebase = async (email, password, name) => {
-  createUserWithEmailAndPassword(auth, email, password)
+  await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       sendEmailVerification(auth.currentUser);
       updateProfile(auth.currentUser, { displayName: name });
-    //  return userCredential;
+      // return userCredential;
+      // return user;
     })
     .catch((error) => {
       console.log(error.code);
@@ -26,7 +27,9 @@ export const registerFirebase = async (email, password, name) => {
 //       FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
 
 export const login = async (email, password) => {
-  signInWithEmailAndPassword(auth, email, password);
+  const promesaLogin = signInWithEmailAndPassword(auth, email, password);
+  console.log(promesaLogin);
+  return promesaLogin;
 };
 
 //                 OBSERVADOR
