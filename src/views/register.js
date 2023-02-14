@@ -71,41 +71,41 @@ export const register = () => {
   p.innerText = 'Desarrollado por y para Laboratorians';
 
   footer.appendChild(p);
-};
 
-//                 TEMPLATE REGISTER
+  //                 TEMPLATE REGISTER
 
-template('register', () => { // Se crea una función anónima
-  register(); // Le asigna a la función anónima la función about()
+  // template('register', () => { // Se crea una función anónima
+  //  register(); // Le asigna a la función anónima la función about()
   const submit = document.getElementById('enviar');
   submit.addEventListener('click', (e) => {
     e.preventDefault();
     const email = document.getElementById('correo').value;
-    // let usuaria = document.getElementById('usuaria').value
-    const password = document.getElementById('password').value;
-    registerFirebase(auth, email, password);
+    const name = document.getElementById('usuaria').value;
+    const passwordRegister = document.getElementById('password').value;
+    registerFirebase(email, passwordRegister, name);
     // emailAutentication(auth, email)
-    if (email === '' || password === '') {
+    if (email === '' || passwordRegister === '') {
       alert('Completa los datos requeridos');
     } else {
       alert('El correo de verificación ha sido enviado a su bandeja de entrada');
     }
 
-  //   const submit = document.getElementById('enviar');
-  //   submit.addEventListener('click', async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const email = document.getElementById('correo').value;
-  //       const usuaria = document.getElementById('usuaria').value;
-  //       const password = document.getElementById('password').value;
-  //       const userCredential = await registerFirebase(auth, email, password, usuaria);
-  //       console.log(userCredential);
-  //     } catch (error) {
-  //     // emailAutentication(auth, email)
-  //       if (email === '' || password === '') {
-  //         alert('Completa los datos requeridos');
-  //       } else {
-  //         alert('El correo de verificación ha sido enviado a su bandeja de entrada');
-  //       }
+    //   const submit = document.getElementById('enviar');
+    //   submit.addEventListener('click', async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //       const email = document.getElementById('correo').value;
+    //       const usuaria = document.getElementById('usuaria').value;
+    //       const password = document.getElementById('password').value;
+    //       const userCredential = await registerFirebase(auth, email, password, usuaria);
+    //       console.log(userCredential);
+    //     } catch (error) {
+    //     // emailAutentication(auth, email)
+    //       if (email === '' || password === '') {
+    //         alert('Completa los datos requeridos');
+    //       } else {
+    //         alert('El correo de verificación ha sido enviado a su bandeja de entrada');
+    //       }
   });
-});
+};
+// };

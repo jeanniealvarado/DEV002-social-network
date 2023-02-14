@@ -1,88 +1,87 @@
 .section-head {
-/*width: 100%;*/
-height: 15%;
-margin: 0;
-padding: 0;
-}
-.logo-timeline{
-    width: 140px;
-    height: auto;
-    margin-right: 180px;
-    margin-top: 40px;
-}
-.section-posting {
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
-}
-.input-post{
-border-color: var(--complementario);
-height: auto;
-width: 300px;
-padding: 5px;
-margin-top: 30px;
-border-radius: 10px;
-border-width: 2px;
-}
-
-.boton-enviar{
-    width: 90px;
-    height: 30px;
-    margin-top: 5px;
-   /* margin-left: 80px;*/
-    border-radius: 15px;
-    margin-left: 210px;
-    background-color: var(--enfasis);
-    border: none;
-}
-
-.boton-enviar:hover{
-    cursor: pointer;
-    background-color: var(--complementario);
-}
-
-.section-timeline{
     /*width: 100%;*/
-    height:45% ;
-    /*display: grid;
-    grid-template-columns: 15px;
-    grid-template-rows: 10px;
-    /*column-gap: <line-size>;*/
-    /*row-gap: 15px;
-    justify-items: center; /*ancho celda*
-    align-items: center; alto celda
-    justify-items: center;
-    align-items: center;*/
-
-}
-
-.divPosted{
-
-}
-
-footer {
-    width: 100%;
-    height: 50px;
-    background-color: var(--complementario);
-    color: var(--base);
-    position: absolute;
-    bottom: 0;
+    height: 15%;
+    margin: 0;
+    padding: 0;
+    }
+    .logo-timeline{
+        width: 140px;
+        height: auto;
+        margin-right: 180px;
+        margin-top: 40px;
+    }
+    .section-posting {
+        height: 25%;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+    }
+    .form-post{
+        display: flex;
+       flex-direction: column;
+    }
+    .input-post{
+    border-color: var(--complementario);
+    height: auto;
+    width: 300px;
     display: flex;
-    justify-content: right;
-}
-
-
-.signOut-button{
-    width: 32px;
-    height: auto;
-    margin-top: 5px;
-    margin-right: 15px;
-    background-color: var(--complementario);
-    border: none;
-}
-.signOut-icon{
-    color: var(--base);
-    width: 32px;
-    height: auto;
-}
+    padding: 5px;
+    margin-top: 30px;
+    border-radius: 10px;
+    border-width: 2px;
+    }
+    
+    .boton-enviar{
+        width: 90px;
+        height: 30px;
+        margin-top: 5px;
+       /* margin-left: 80px;*/
+        border-radius: 15px;
+        margin-left: 210px;
+        background-color: var(--enfasis);
+        border: none;
+    }
+    
+    .boton-enviar:hover{
+        cursor: pointer;
+        background-color: var(--complementario);
+    }
+    
+    .section-timeline{
+        /*width: 100%;*/
+        height:45% ;
+        display: grid;
+    }
+    .div-posted{
+        
+        display:grid;
+        gap: 15px;
+    }
+    .post-foreach{
+        background-color: #fff6d8;
+    }
+    
+    footer {
+        width: 100%;
+        height: 50px;
+        background-color: var(--complementario);
+        color: var(--base);
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: right;
+    }
+    
+    .signOut-button{
+        width: 32px;
+        height: auto;
+        margin-top: 5px;
+        margin-right: 15px;
+        background-color: var(--complementario);
+        border: none;
+    }
+    .signOut-icon{
+        color: var(--base);
+        width: 32px;
+        height: auto;
+    }

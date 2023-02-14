@@ -108,8 +108,17 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
     console.log(email, password);
-    login(auth, email, password);
-    return window.location = 'http://localhost:3000/#/timeline';
+    const promesaLogin = login(email, password);
+    promesaLogin
+      .then((resultado) => {
+        console.log(resultado)
+        window.location = 'http://localhost:3000/#/timeline';
+      // Función para manejar el nuevo cambio de ruta
+      })
+      .catch((error)=>{
+        console.log(error)
+        alert('Usuaria no encontrada')
+      });
   });
   const google = document.getElementById('google');
   google.addEventListener('click', (e) => {

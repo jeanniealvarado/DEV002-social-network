@@ -3,39 +3,38 @@ import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
-  db, auth, provider, deleteDoc,
-  updateDoc, doc, Timestamp,
+  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = async (email, password, displayName) => {
-  createUserWithEmailAndPassword(auth, email, password)
+export const registerFirebase = async (email, password, name) => {
+  await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
+      const user = userCredential.user;
       sendEmailVerification(auth.currentUser);
-      updateProfile(auth.currentUser, { displayName });
-      return userCredential;
+      updateProfile(auth.currentUser, { displayName: name });
+      // return userCredential;
+      // return user;
     })
     .catch((error) => {
       console.log(error.code);
       console.log(error.message);
+    //  alert(errorMessage);
     });
 };
 
 //       FUNCIÓN LOGIN CON EMAIL Y CONTRASEÑA
 
 export const login = async (email, password) => {
-  signInWithEmailAndPassword(auth, email, password);
-  //   .then((userCredential) => {
-  //     const user = userCredential.user;
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     alert(errorMessage);
-  //   });
-  // return undefined;
+  const promesaLogin = signInWithEmailAndPassword(auth, email, password);
+  console.log(promesaLogin);
+  return promesaLogin;
 };
+
+//                 OBSERVADOR
+export const userState = (user) => onAuthStateChanged(auth, user);
+export const user1 = () => auth.currentUser;
 
 //          FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = () => {
@@ -58,14 +57,17 @@ export const registerGoogle = () => {
     // ...
     });
 };
+
 //          MOSTRAR LOS POSTS
 
 // Para guardar Posts
 export const publicaciones = (post) => {
+  // const auth = getAuth();
+  console.log(auth.currentUser);
   addDoc(collection(db, 'users'), {
     post,
-    //name: auth.currentUser.displayName,
-    //uid: auth.currentUser.uid,
+    name: auth.currentUser.displayName,
+    userID: auth.currentUser.uid,
     likes: [],
     createdDateTime: Timestamp.fromDate(new Date()),
   });
@@ -88,7 +90,6 @@ export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 // para editar posts
 export const editPost = (id) => getDoc(doc(db, 'users', id));
 
-
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
 export const getPost = (id) => getDoc(doc(db, 'users', id));
@@ -96,6 +97,28 @@ export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   const q = query(collection(db, 'tasks'), orderBy('createdDateTime', 'desc'));
   onSnapshot(q, querySnapshot);
+};
+
+// -----LIKES----------------------
+
+export const giveLike = (id, nuevoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayUnion(
+        nuevoLike,
+      ),
+  });
+  // .then(() => console.log("+1 like"))
+  // .catch((error) => console.error("Error", error));
+};
+
+export const disLike = (id, viejoLike) => {
+  updateDoc(doc(db, 'tasks', id), {
+    likes:
+      arrayRemove(
+        viejoLike,
+      ),
+  });
 };
 
 //         CERRAR SESIÓN
