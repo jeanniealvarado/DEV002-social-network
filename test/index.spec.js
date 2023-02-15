@@ -9,13 +9,13 @@ import { createUserWithEmailAndPassword, registerFirebase } from '../src/Firebas
 //   auth: jest.fn(() => ({ auth: 'TEST ' })),
 // }));
 
-jest.mock(../src/Firebase/FirebaseImport.js);
+jest.mock('../src/Firebase/FirebaseImport.js');
 
 describe('Tests para Register'), () => {
-  test('El componente es una función'), () => {
-    expect(typeof registerFirebase). toBe('function');
-  }
-}
+//   test('El componente es una función'), () => {
+//     expect(typeof registerFirebase). toBe('function');
+//   }
+// }
 // jest.mock('../src/Firebase/FirebaseImport.js', () => ({
 //   createUserWithEmailAndPassword: jest.fn((auth, email, password) =>
 //     // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa')

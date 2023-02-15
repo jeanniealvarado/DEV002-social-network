@@ -64,20 +64,21 @@ export const registerGoogle = () => {
 export const publicaciones = (post) => {
   // const auth = getAuth();
   console.log(auth.currentUser);
+
+  const createdDateTime = Timestamp.fromDate(new Date());
+  const date = createdDateTime.toDate();
+  const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear().toString().slice(-2)}`;
+
   addDoc(collection(db, 'users'), {
     post,
     name: auth.currentUser.displayName,
     userID: auth.currentUser.uid,
     likes: [],
     createdDateTime: Timestamp.fromDate(new Date()),
+    formattedDate: formattedDate,
   });
 };
-// export const saveUser = (name, uid, email) => addDoc(collection(db, 'users'), {
-//   name,
-//   uid,
-//   email,
-//   createdDateTime: Timestamp.fromDate(new Date()),
-// });
+
 // para obtener data de las colecciones
 export const getAllPosts = () => getDocs(collection(db, 'users'));
 
@@ -97,12 +98,7 @@ export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   onSnapshot(q, querySnapshot);
 };
-// collection(db, 'users').orderBy('fecha_creacion', 'desc').get()
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(`${doc.id} => ${doc.data()}`);
-//     });
-//   });
+
 // -----LIKES----------------------
 
 export const giveLike = (id, nuevoLike) => {
@@ -124,7 +120,6 @@ export const disLike = (id, viejoLike) => {
       ),
   });
 };
-
 //         CERRAR SESIÓN
 export const logOut = (auth) => {
   signOut(auth).then(() => {
@@ -135,41 +130,6 @@ export const logOut = (auth) => {
   // An error happened.
   });
 };
-
-// ESCRIBIR COLLECTION
-
-// class usuariaData {
-//   constructor(name, uid, posts) {
-//     this.name = auth.currentUser.displayName;
-//     this.uid = auth.currentUser.uid;
-//     this.post = post;
-//   }
-
-//   toString() {
-//     return `${this.name}, ${this.uid}, ${this.post}`;
-//   }
-// }
-
-// Firestore data converter
-// const usuariaConverter = {
-//   toFirestore: (usuariaData) => ({
-//     name: city.name,
-//     state: city.state,
-//     country: city.country,
-//   }),
-//   fromFirestore: (snapshot, options) => {
-//     const data = snapshot.data(options);
-//     return new City(data.name, data.state, data.country);
-//   },
-// };
-
-// export const addPost = (post) => addDoc(collection(db, 'users'), {
-//   post,
-//   user: auth.currentUser.displayName,
-//   uid: auth.currentUser.uid,
-//   // likes: 0,
-//   // likes: [],
-// });
 
 export {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification,

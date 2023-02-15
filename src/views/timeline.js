@@ -4,7 +4,7 @@ import {
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
-import { auth, doc } from '../Firebase/FirebaseImport.js';
+import { auth, doc, onAuthStateChanged } from '../Firebase/FirebaseImport.js';
 import { inicioDeSesion } from './InicioDeSesion.js';
 // onGetPost, deletePost, getPost, publicaciones
 
@@ -90,45 +90,67 @@ export const timeline = () => {
   let editStatus = false;
   let id = '';
 
-  // const postPublisher = async () => {
-  // const querySnapshot = await getAllPosts();
-  datePost((querySnapshot) => {
-    let html = '';
+  // Aqui inicia el observador para dar la condicional - botones
 
-    querySnapshot.forEach((doc) => {
-      const postData = doc.data();
-      html += `
-         <div class = 'post-foreach'>
-            <p>${postData.createdDateTime}</p>
-            <p>${postData.post}</p>
-            <button class='btn-delete' data-id='${doc.id}'>Delete</button>
-            <button class='btn-edit' data-id='${doc.id}'>Edit</button>
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const userID = user.uid;
+      datePost((querySnapshot) => {
+        let html = '';
+        let optionsUser = '';
+
+        querySnapshot.forEach((doc) => {
+          const postData = doc.data();
+          if (userID === postData.userID) {
+            optionsUser = `
+         <div class = 'post-options'>
+         <button class='btn-delete' data-id='${doc.id}'>
+         <i class="fa-solid fa-trash-can"></i>
+         </button>
+         <button class='btn-edit' data-id='${doc.id}'>
+         <i class="fa-solid fa-pen-to-square"></i>
+         </button>
             </div>
        `;
-    });
-    postedDiv.innerHTML = html;
-    const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
-    btnsDelete.forEach((btn) => {
-      btn.addEventListener('click', ({ target: { dataset } }) => {
-        deletePost(dataset.id);
+          } else {
+            optionsUser = '';
+          }
+          html
+          += ` <div class = 'post-foreach'>
+          <p>${postData.name}</p>
+          <p>${postData.formattedDate}</p>
+          <p>${postData.post}</p>
+          ${optionsUser}
+          </div>`;
+        });
+        postedDiv.innerHTML = html;
+        const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
+        btnsDelete.forEach((btn) => {
+          btn.addEventListener('click', ({ target: { dataset } }) => {
+            if (confirm('¿Segura que deseas eliminar el post?')) { /* eslint-disable-line */
+              deletePost(dataset.id);
+            }
+          });
+        });
+
+        const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
+        btnsEdit.forEach((btn) => {
+          btn.addEventListener('click', async (e) => {
+            const doc = await getPost(e.target.dataset.id);
+            const postData = doc.data();
+            formulario.postear.value = postData.post;
+
+            editStatus = true;
+            id = doc.id;
+
+            formulario.publicar.innerText = 'Update';
+          });
+        });
       });
-    });
-
-    const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
-    btnsEdit.forEach((btn) => {
-      btn.addEventListener('click', async (e) => {
-        const doc = await getPost(e.target.dataset.id);
-        const postData = doc.data();
-        formulario.postear.value = postData.post;
-
-        editStatus = true;
-        id = doc.id;
-
-        formulario.publicar.innerText = 'Update';
-      });
-    });
+    } else {
+      console.log('usuaria no logueada');
+    }
   });
-  // };
 
   //                  DOM POST PT 1     AQUÍ OH
 
@@ -167,7 +189,7 @@ export const timeline = () => {
   //       </ul>
   //       </div>
   //       <div class="cuerpoDePost" >
-  //       <p class="contenidoP"> ${task.description} </p> 
+  //       <p class="contenidoP"> ${task.description} </p>
   //       </div>
   //       <div  class="linea"></div>
   //       <div class="footerDePost">
@@ -183,9 +205,9 @@ export const timeline = () => {
 
   //                  TEMPLATE TIMELINE
   publicar.addEventListener('click', async (e) => {
-    e.preventDefault ();
+    e.preventDefault();
     const postDescription = formulario.postear;
-    //await postPublisher();
+    // await postPublisher();
 
     if (!editStatus) {
       await publicaciones(postDescription.value);
@@ -197,7 +219,6 @@ export const timeline = () => {
     }
     formulario.reset();
   });
-
   //                  DOM POST PT 2    AQUÍ OH
 
   // const userId = user1().uid;
