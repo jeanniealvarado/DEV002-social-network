@@ -95,7 +95,7 @@ export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newF
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
-  const q = query(collection(db, 'tasks'), orderBy('createdDateTime', 'desc'));
+  const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
   onSnapshot(q, querySnapshot);
 };
 
