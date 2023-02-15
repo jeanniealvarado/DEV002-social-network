@@ -99,7 +99,8 @@ export const timeline = () => {
       const postData = doc.data();
       html += `
          <div class = 'post-foreach'>
-            <p>${postData.createdDateTime}</p>
+            <p>${auth.currentUser.displayName}</p>
+            <p>${postData.formattedDate}</p>
             <p>${postData.post}</p>
             <button class='btn-delete' data-id='${doc.id}'>Delete</button>
             <button class='btn-edit' data-id='${doc.id}'>Edit</button>

@@ -64,12 +64,18 @@ export const registerGoogle = () => {
 export const publicaciones = (post) => {
   // const auth = getAuth();
   console.log(auth.currentUser);
+
+  const createdDateTime = Timestamp.fromDate(new Date());
+  const date = createdDateTime.toDate();
+  const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear().toString().slice(-2)}`;
+ 
   addDoc(collection(db, 'users'), {
     post,
     name: auth.currentUser.displayName,
     userID: auth.currentUser.uid,
     likes: [],
     createdDateTime: Timestamp.fromDate(new Date()),
+    formattedDate: formattedDate,
   });
 };
 // export const saveUser = (name, uid, email) => addDoc(collection(db, 'users'), {
