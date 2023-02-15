@@ -34,3 +34,4 @@ describe('Tests para Register'), () => {
 //     // expect(createUserWithEmailAndPassword).toHaveBeenCalled(email, password);
 //   });
 // });
+// TESTEAR; login, registerGoogle, publicaciones, addDoc, 

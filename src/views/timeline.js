@@ -102,8 +102,12 @@ export const timeline = () => {
             <p>${auth.currentUser.displayName}</p>
             <p>${postData.formattedDate}</p>
             <p>${postData.post}</p>
-            <button class='btn-delete' data-id='${doc.id}'>Delete</button>
-            <button class='btn-edit' data-id='${doc.id}'>Edit</button>
+            <button class='btn-delete' data-id='${doc.id}'>
+            <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class='btn-edit' data-id='${doc.id}'>
+            <i class="fa-solid fa-pen-to-square"></i>
+            </button>
             </div>
        `;
     });
