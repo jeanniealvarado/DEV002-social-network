@@ -82,7 +82,7 @@ export const timeline = () => {
 
   const postedDiv = document.getElementById('divPosted');
 
-  const arrayPost = [];
+  let arrayPost = [];
   const postear = document.getElementById('postear');
   const publicar = document.getElementById('publicar');
   const userLogout = document.getElementById('userSignOut');
@@ -90,8 +90,9 @@ export const timeline = () => {
   let editStatus = false;
   let id = '';
 
-  // Aqui inicia el observador para dar la condicional - botones
+  //           ELIMINAR, EDITAR, LIKES
 
+  // Aquí inicia el observador - condicional - botones
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const userID = user.uid;
@@ -121,9 +122,12 @@ export const timeline = () => {
           <p>${postData.formattedDate}</p>
           <p>${postData.post}</p>
           ${optionsUser}
+          <button class='btn-like' data-id='${doc.id}'>Like</button>
+          <p>${postData.countLikes}</p>
           </div>`;
         });
         postedDiv.innerHTML = html;
+        //             ELIMINAR
         const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
         btnsDelete.forEach((btn) => {
           btn.addEventListener('click', ({ target: { dataset } }) => {
@@ -133,6 +137,7 @@ export const timeline = () => {
           });
         });
 
+        //              EDITAR
         const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
         btnsEdit.forEach((btn) => {
           btn.addEventListener('click', async (e) => {
@@ -146,62 +151,34 @@ export const timeline = () => {
             formulario.publicar.innerText = 'Update';
           });
         });
+
+        //                LIKES
+        const btnsLike = postedDiv.querySelectorAll('.btn-like');
+        btnsLike.forEach((btn) => {
+          btn.addEventListener('click', async ({ target: { dataset } }) => {
+            console.log('¿Entra el await de getPost?');
+            const doc = await getPost(dataset.id);
+            //¿Poner un catch?
+            const postData = doc.data();
+            id = doc.id;
+            console.log(doc);
+            const userIDlikes = user.uid;
+            // catch
+            arrayPost = postData.likes;
+            if (!arrayPost.includes(userIDlikes)) {
+              arrayPost.push(userIDlikes);
+            } else {
+              console.log('El usuario ya había dado like, no es necesario hacer nada');
+            }
+            const likesCount = arrayPost.length;
+            updateNotes(id, { likes: arrayPost, countLikes: likesCount });
+          });// la del click
+        });
       });
     } else {
       console.log('usuaria no logueada');
     }
   });
-
-  //                  DOM POST PT 1     AQUÍ OH
-
-  // // espera a que DOM se cargue completamente
-  // window.addEventListener('DOMContentLoaded', async () => {
-  //   // const querySnapshot = await getTasks();
-  //   // querysnapshot es una "foto" instantánea de la base de datos
-  //   onGetTasks((querySnapshot) => {
-  //     let divContain = '';
-  //     querySnapshot.forEach((doc) => {
-  //       const task = doc.data();
-  //       const likes = task.likes;
-  //       const numero = likes.length;
-  //       const userId = user1().uid;
-  //       const currentLike = likes.indexOf(userId);
-  //       let likeSrc = '';
-  //       const likeImg = () => {
-  //         if (currentLike === -1) {
-  //           likeSrc = '/*aquí va el icon*/';
-  //         } else {
-  //           likeSrc = '/*aquí va el icon*/';
-  //         }
-  //       };
-  //       likeImg();
-
-  //       divContain += `
-  //       <section class="post">
-  //       <div class="cabezaDePost">
-  //       <img class="fotoDePerfil" src="imagenes/pug.jpg" alt='foto del usuario'>
-  //       <p class="nombreDeUsuario"> Manchitas</p>
-  //       <ul disabled selected class ="menu-horizontal" id="mas"><img src="imagenes/mas.png" width=30px height=30px>
-  //        <div class="edit-delet">
-  //        <li class='editar' data-id='${doc.id}'><img width=15px src="imagenes/editar.png"> Editar publicación</li>
-  //        <li class='delete' data-id='${doc.id}'><img width=15px src="imagenes/eliminar.png"> Eliminar </li>
-  //        </div>
-  //       </ul>
-  //       </div>
-  //       <div class="cuerpoDePost" >
-  //       <p class="contenidoP"> ${task.description} </p>
-  //       </div>
-  //       <div  class="linea"></div>
-  //       <div class="footerDePost">
-  //       <img class="like" data-id="${doc.id}" src='${likeSrc}' width=30px>
-  //       <p class="contadorLike" data-id="${doc.id}"> ${numero} Me encanta</p>
-  //       </div>
-  //       </section>
-  //       `;
-  //     });
-  //     taskContainer.innerHTML = divContain;
-  //   });
-  // });
 
   //                  TEMPLATE TIMELINE
   publicar.addEventListener('click', async (e) => {
@@ -219,40 +196,6 @@ export const timeline = () => {
     }
     formulario.reset();
   });
-  //                  DOM POST PT 2    AQUÍ OH
-
-  // const userId = user1().uid;
-  // const likeBtn = taskContainer.querySelectorAll('.like');
-
-  // // likeBtn.forEach((btn) => {
-  // //   btn.src = 'imagenes/dislike.png'
-  // // })
-
-  // likeBtn.forEach((btn) => {
-  //   btn.addEventListener('click', async (e) => {
-  //     const id = e.target.dataset.id;
-  //     const doc = await getTask(id);
-  //     const likes = doc.data().likes;
-  //     const currentLike = likes.indexOf(userId);
-  //     // let numero = likes.length;
-  //     console.log(likes);
-  //     if (currentLike === -1) {
-  //       // btn.src = 'imagenes/like.png';
-  //       giveLike(id, userId);
-  //       // console.log(btn)
-  //       // numero = numero + 1
-  //       // console.log(numero + " likes")
-  //       // contadorLike.innerHTML = numero + " me encanta"
-  //     } else {
-  //       // btn.src = 'imagenes/dislike.png';
-  //       disLike(id, userId);
-  //       // numero = numero - 1
-  //       // console.log(numero + " likes")
-  //       // contadorLike.innerHTML = numero + " me encanta"
-  //       // console.log(btn)
-  //     }
-  //   });
-  // });
 
   //       FUNCIÓN LOGOUT
   console.log('Función Logout');
