@@ -74,6 +74,7 @@ export const publicaciones = (post) => {
     name: auth.currentUser.displayName,
     userID: auth.currentUser.uid,
     likes: [],
+    countLikes: 0,
     createdDateTime: Timestamp.fromDate(new Date()),
     formattedDate: formattedDate,
   });
@@ -93,33 +94,14 @@ export const editPost = (id) => getDoc(doc(db, 'users', id));
 export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
 // actualizar publicaciones
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
+
+// función para obtener un post por su ID
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   onSnapshot(q, querySnapshot);
 };
 
-// -----LIKES----------------------
-
-export const giveLike = (id, nuevoLike) => {
-  updateDoc(doc(db, 'tasks', id), {
-    likes:
-      arrayUnion(
-        nuevoLike,
-      ),
-  });
-  // .then(() => console.log("+1 like"))
-  // .catch((error) => console.error("Error", error));
-};
-
-export const disLike = (id, viejoLike) => {
-  updateDoc(doc(db, 'tasks', id), {
-    likes:
-      arrayRemove(
-        viejoLike,
-      ),
-  });
-};
 //         CERRAR SESIÓN
 export const logOut = (auth) => {
   signOut(auth).then(() => {
