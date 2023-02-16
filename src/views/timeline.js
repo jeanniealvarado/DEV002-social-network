@@ -1,6 +1,6 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost, editPost, getPost, datePost,
+  logOut, publicaciones, deletePost, getPost, datePost,
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
@@ -97,19 +97,22 @@ export const timeline = () => {
 
     querySnapshot.forEach((doc) => {
       const postData = doc.data();
+      console.log(postData);
       html += `
          <div class = 'post-foreach'>
             <p>${auth.currentUser.displayName}</p>
             <p>${postData.formattedDate}</p>
             <p>${postData.post}</p>
             <button class='btn-delete' data-id='${doc.id}'>
-            <i class="fa-solid fa-trash-can"></i>
+            Eliminar
             </button>
             <button class='btn-edit' data-id='${doc.id}'>
-            <i class="fa-solid fa-pen-to-square"></i>
+            Editar
             </button>
             </div>
        `;
+       //console.log(doc.id)
+
     });
     postedDiv.innerHTML = html;
     const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
@@ -121,13 +124,15 @@ export const timeline = () => {
 
     const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
     btnsEdit.forEach((btn) => {
-      btn.addEventListener('click', async (e) => {
-        const doc = await getPost(e.target.dataset.id);
-        const postData = doc.data();
+      //console.log(btn);
+      btn.addEventListener('click', async ({ target: { dataset } }) => {
+       // console.log('boton edit', dataset.id);
+        const docX = await getPost(dataset.id);
+        const postData = docX.data();
         formulario.postear.value = postData.post;
 
         editStatus = true;
-        id = doc.id;
+        id = docX.id;
 
         formulario.publicar.innerText = 'Update';
       });
