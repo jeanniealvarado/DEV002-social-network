@@ -105,10 +105,10 @@ export const timeline = () => {
             optionsUser = `
          <div class = 'post-options'>
          <button class='btn-delete' data-id='${doc.id}'>
-         <i class="fa-solid fa-trash-can"></i>
+         Eliminar
          </button>
          <button class='btn-edit' data-id='${doc.id}'>
-         <i class="fa-solid fa-pen-to-square"></i>
+         Editar
          </button>
             </div>
        `;
