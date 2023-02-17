@@ -6,9 +6,10 @@ import {
   db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion, query, orderBy,
 } from './FirebaseImport.js';
 
+
 //           FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = async (email, password, name) => {
-  await createUserWithEmailAndPassword(auth, email, password)
+export const registerFirebase = (email, password, name) => { 
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -97,7 +98,7 @@ export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newF
 
 // función para obtener un post por su ID
 export const getPost = (id) => getDoc(doc(db, 'users', id));
-export const editLike = (id) => getDoc(doc(db, 'users', id));
+//export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   onSnapshot(q, querySnapshot);
 };
