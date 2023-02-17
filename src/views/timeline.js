@@ -158,7 +158,7 @@ export const timeline = () => {
           btn.addEventListener('click', async ({ target: { dataset } }) => {
             console.log('¿Entra el await de getPost?');
             const doc = await getPost(dataset.id);
-            //¿Poner un catch?
+            // ¿Poner un catch?
             const postData = doc.data();
             id = doc.id;
             console.log(doc);
@@ -169,6 +169,16 @@ export const timeline = () => {
               arrayPost.push(userIDlikes);
             } else {
               console.log('El usuario ya había dado like, no es necesario hacer nada');
+              //En este else, la variable index que 
+              const index = arrayPost.indexOf(userIDlikes);
+              //Agregar un if de "verificación" para saber si el usuario está
+              // en el array; recordar que el índice mínimo de un array es 0, 
+              // por eso se pone -1
+              if (index > -1) {
+                //el splice, para eliminar ese índice 1 del array 
+                // (sacar el id de usuario del array)
+                arrayPost.splice(index, 1);
+              }
             }
             const likesCount = arrayPost.length;
             updateNotes(id, { likes: arrayPost, countLikes: likesCount });
