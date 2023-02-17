@@ -78,6 +78,23 @@
         border: none;
     border-radius: 10px;
     }
+    .btn-like{
+        border:0;
+        background: none;
+        font-size: 18px;
+    }
+    /*.btn-like:hover{
+        color: var(--complementario);
+
+    }*/
+    .btn-like.normal{
+        color: var(--enfasis);
+    }
+    .btn-like.active{
+        color: var(--complementario);
+    }
+    
+    
     .post-nameDate{
         display:flex;
         justify-content: flex-end;
@@ -89,6 +106,7 @@
         justify-content: flex-end;
         gap: 20px;
         padding: 5px;
+        align-items: baseline;
     }
     
     

@@ -37,6 +37,7 @@ export const timeline = () => {
   logo.src = './img/logo-big.png';
   logo.alt = 'logo-powerL';
   holaUsuaria.className = 'hola-Usuaria';
+  holaUsuaria.id = 'usuariaHola';
   eliminar.className = 'fa-solid fa-trash-can';
   editar.className = 'fa-regular fa-pen-to-square';
   signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-icon';
@@ -89,6 +90,7 @@ export const timeline = () => {
   const formulario = document.getElementById('formPost');
   let editStatus = false;
   let id = '';
+  //const usuariaHola = document.getElementById('usuariaHola');
 
   //           ELIMINAR, EDITAR, LIKES
 
@@ -99,7 +101,7 @@ export const timeline = () => {
       datePost((querySnapshot) => {
         let html = '';
         let optionsUser = '';
-
+        let saludoUsuaria= '';
         querySnapshot.forEach((doc) => {
           const postData = doc.data();
           if (userID === postData.userID) {
@@ -116,6 +118,10 @@ export const timeline = () => {
           } else {
             optionsUser = '';
           }
+          saludoUsuaria = `<div>
+          Hola,
+          ${auth.currentUser.displayName}
+          </div>`;
           html
           += ` <div class = 'post-foreach'>
           <div class = 'post-nameDate'>
@@ -125,11 +131,12 @@ export const timeline = () => {
           <p>${postData.post}</p>
           ${optionsUser}
           <div class = 'post-like'>
-          <button class='btn-like' data-id='${doc.id}'>Like</button>
-          <p>${postData.countLikes}</p>
+          <button class='btn-like active normal' data-id='${doc.id}'>❤</button>
+          <p class='counter'>${postData.countLikes}</p>
           </div>
           </div>`;
         });
+        holaUsuaria.innerHTML = saludoUsuaria;
         postedDiv.innerHTML = html;
         //             ELIMINAR
         const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
@@ -161,9 +168,8 @@ export const timeline = () => {
         const btnsLike = postedDiv.querySelectorAll('.btn-like');
         btnsLike.forEach((btn) => {
           btn.addEventListener('click', async ({ target: { dataset } }) => {
-            console.log('¿Entra el await de getPost?');
             const doc = await getPost(dataset.id);
-            // ¿Poner un catch?
+
             const postData = doc.data();
             id = doc.id;
             console.log(doc);
@@ -174,13 +180,13 @@ export const timeline = () => {
               arrayPost.push(userIDlikes);
             } else {
               console.log('El usuario ya había dado like, no es necesario hacer nada');
-              //En este else, la variable index que 
+              // En este else, la variable index que
               const index = arrayPost.indexOf(userIDlikes);
-              //Agregar un if de "verificación" para saber si el usuario está
-              // en el array; recordar que el índice mínimo de un array es 0, 
+              // Agregar un if de "verificación" para saber si el usuario está
+              // en el array; recordar que el índice mínimo de un array es 0,
               // por eso se pone -1
               if (index > -1) {
-                //el splice, para eliminar ese índice 1 del array 
+                // el splice, para eliminar ese índice 1 del array
                 // (sacar el id de usuario del array)
                 arrayPost.splice(index, 1);
               }
