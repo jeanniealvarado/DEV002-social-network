@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { registerFirebase, login } from '../src/Firebase/FirebaseFunctions.js';
-import { sendEmailVerification, signInWithEmailAndPassword } from '../src/Firebase/FirebaseImport.js';
+import { registerFirebase, login, registerGoogle } from '../src/Firebase/FirebaseFunctions.js';
+import { sendEmailVerification, signInWithEmailAndPassword, signInWithPopup } from '../src/Firebase/FirebaseImport.js';
 // import { auth } from '../src/main.js';
 
 // jest.mock('../src/main.js', () => ({
