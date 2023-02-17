@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { registerFirebase } from '../src/Firebase/FirebaseFunctions.js';
-import { sendEmailVerification} from '../src/Firebase/FirebaseImport.js'
+import { registerFirebase, login } from '../src/Firebase/FirebaseFunctions.js';
+import { sendEmailVerification, signInWithEmailAndPassword } from '../src/Firebase/FirebaseImport.js';
 // import { auth } from '../src/main.js';
 
 // jest.mock('../src/main.js', () => ({
@@ -11,24 +11,39 @@ import { sendEmailVerification} from '../src/Firebase/FirebaseImport.js'
 // }));
 
 jest.mock('../src/Firebase/FirebaseImport.js', () => ({
-  createUserWithEmailAndPassword: () => Promise.resolve({user:{}}),
+  createUserWithEmailAndPassword: () => Promise.resolve({ user: {} }),
   sendEmailVerification: jest.fn(),
   query: () => null,
   collection: () => null,
   orderBy: () => null,
-  auth:{currentUser:{}}
+  // auth:{currentUser:{}},
+  auth: jest.fn(() => ({ auth: 'TEST ' })),
+  signInWithEmailAndPassword: jest.fn((auth, email, password) => {
+    if (!email || !password) {
+      throw new Error('ERROR');
+    }
+    Promise.resolve({ user: 'admin' });
+  }),
 }));
 
 describe('Tests para Register', () => {
-   it("test", async () => {
-    registerFirebase()
-    //await new Promise(resolve => setTimeout(resolve,0))
+  it('test', async () => {
+    registerFirebase();
+    // await new Promise(resolve => setTimeout(resolve,0))
     await new Promise(process.nextTick);
-    expect(sendEmailVerification).toHaveBeenCalled()
+    expect(sendEmailVerification).toHaveBeenCalled();
+  });
+});
 
-   }) 
-})
-//   test('El componente es una función'), () => {
+describe('Test para inicio sesion de usuario', () => {
+  const email = 'admin@test.com';
+  const password = 'admin123';
+
+  it('la funcion llama a signInWithEmailAndPassword', async () => {
+    await login(email, password);
+    expect(signInWithEmailAndPassword).toHaveBeenCalled();
+  });
+});
 //     expect(typeof registerFirebase). toBe('function');
 //   }
 // }

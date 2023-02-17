@@ -57,9 +57,40 @@
         display:grid;
         gap: 15px;
     }
+    .post-options{
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
     .post-foreach{
         background-color: #fff6d8;
+        display: flow-root;
+        margin: 15px;
+        padding: 10px;
     }
+    .btn-delete{
+        background: var(--enfasis);
+        border: none;
+    border-radius: 10px;
+    }
+    .btn-edit{
+        background: var(--enfasis);
+        border: none;
+    border-radius: 10px;
+    }
+    .post-nameDate{
+        display:flex;
+        justify-content: flex-end;
+        gap: 15px;
+
+    }
+    .post-like{
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        padding: 5px;
+    }
+    
     
     footer {
         width: 100%;

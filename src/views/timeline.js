@@ -118,12 +118,16 @@ export const timeline = () => {
           }
           html
           += ` <div class = 'post-foreach'>
+          <div class = 'post-nameDate'>
           <p>${postData.name}</p>
           <p>${postData.formattedDate}</p>
+          </div>
           <p>${postData.post}</p>
           ${optionsUser}
+          <div class = 'post-like'>
           <button class='btn-like' data-id='${doc.id}'>Like</button>
           <p>${postData.countLikes}</p>
+          </div>
           </div>`;
         });
         postedDiv.innerHTML = html;
@@ -139,6 +143,7 @@ export const timeline = () => {
 
         //              EDITAR
         const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
+        console.log(btnsEdit);
         btnsEdit.forEach((btn) => {
           btn.addEventListener('click', async (e) => {
             const doc = await getPost(e.target.dataset.id);
