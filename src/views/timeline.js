@@ -4,7 +4,7 @@ import {
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
-import { auth, doc } from '../Firebase/FirebaseImport.js';
+import { auth, doc, onAuthStateChanged } from '../Firebase/FirebaseImport.js';
 import { inicioDeSesion } from './InicioDeSesion.js';
 // onGetPost, deletePost, getPost, publicaciones
 
@@ -37,6 +37,7 @@ export const timeline = () => {
   logo.src = './img/logo-big.png';
   logo.alt = 'logo-powerL';
   holaUsuaria.className = 'hola-Usuaria';
+  holaUsuaria.id = 'usuariaHola';
   eliminar.className = 'fa-solid fa-trash-can';
   editar.className = 'fa-regular fa-pen-to-square';
   signOut.className = 'fa-solid fa-arrow-right-from-bracket signOut-icon';
@@ -82,13 +83,14 @@ export const timeline = () => {
 
   const postedDiv = document.getElementById('divPosted');
 
-  const arrayPost = [];
+  let arrayPost = [];
   const postear = document.getElementById('postear');
   const publicar = document.getElementById('publicar');
   const userLogout = document.getElementById('userSignOut');
   const formulario = document.getElementById('formPost');
   let editStatus = false;
   let id = '';
+<<<<<<< HEAD
 
   // const postPublisher = async () => {
   // const querySnapshot = await getAllPosts();
@@ -135,67 +137,124 @@ export const timeline = () => {
         id = docX.id;
 
         formulario.publicar.innerText = 'Update';
+=======
+  //const usuariaHola = document.getElementById('usuariaHola');
+
+  //           ELIMINAR, EDITAR, LIKES
+
+  // Aquí inicia el observador - condicional - botones
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const userID = user.uid;
+      datePost((querySnapshot) => {
+        let html = '';
+        let optionsUser = '';
+        let saludoUsuaria= '';
+        querySnapshot.forEach((doc) => {
+          const postData = doc.data();
+          if (userID === postData.userID) {
+            optionsUser = `
+         <div class = 'post-options'>
+         <button class='btn-delete' data-id='${doc.id}'>
+         Eliminar
+         </button>
+         <button class='btn-edit' data-id='${doc.id}'>
+         Editar
+         </button>
+            </div>
+       `;
+          } else {
+            optionsUser = '';
+          }
+          saludoUsuaria = `<div>
+          Hola,
+          ${auth.currentUser.displayName}
+          </div>`;
+          html
+          += ` <div class = 'post-foreach'>
+          <div class = 'post-nameDate'>
+          <p>${postData.name}</p>
+          <p>${postData.formattedDate}</p>
+          </div>
+          <p>${postData.post}</p>
+          ${optionsUser}
+          <div class = 'post-like'>
+          <button class='btn-like active normal' data-id='${doc.id}'>❤</button>
+          <p class='counter'>${postData.countLikes}</p>
+          </div>
+          </div>`;
+        });
+        holaUsuaria.innerHTML = saludoUsuaria;
+        postedDiv.innerHTML = html;
+        //             ELIMINAR
+        const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
+        btnsDelete.forEach((btn) => {
+          btn.addEventListener('click', ({ target: { dataset } }) => {
+            if (confirm('¿Segura que deseas eliminar el post?')) { /* eslint-disable-line */
+              deletePost(dataset.id);
+            }
+          });
+        });
+
+        //              EDITAR
+        const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
+        console.log(btnsEdit);
+        btnsEdit.forEach((btn) => {
+          btn.addEventListener('click', async (e) => {
+            const doc = await getPost(e.target.dataset.id);
+            const postData = doc.data();
+            formulario.postear.value = postData.post;
+
+            editStatus = true;
+            id = doc.id;
+
+            formulario.publicar.innerText = 'Update';
+          });
+        });
+
+        //                LIKES
+        const btnsLike = postedDiv.querySelectorAll('.btn-like');
+        btnsLike.forEach((btn) => {
+          btn.addEventListener('click', async ({ target: { dataset } }) => {
+            const doc = await getPost(dataset.id);
+
+            const postData = doc.data();
+            id = doc.id;
+            console.log(doc);
+            const userIDlikes = user.uid;
+            // catch
+            arrayPost = postData.likes;
+            if (!arrayPost.includes(userIDlikes)) {
+              arrayPost.push(userIDlikes);
+            } else {
+              console.log('El usuario ya había dado like, no es necesario hacer nada');
+              // En este else, la variable index que
+              const index = arrayPost.indexOf(userIDlikes);
+              // Agregar un if de "verificación" para saber si el usuario está
+              // en el array; recordar que el índice mínimo de un array es 0,
+              // por eso se pone -1
+              if (index > -1) {
+                // el splice, para eliminar ese índice 1 del array
+                // (sacar el id de usuario del array)
+                arrayPost.splice(index, 1);
+              }
+            }
+            const likesCount = arrayPost.length;
+            updateNotes(id, { likes: arrayPost, countLikes: likesCount });
+          });// la del click
+        });
+>>>>>>> f6a591b0fcdb3997457a73156d94f3865a64970d
       });
-    });
+    } else {
+      console.log('usuaria no logueada');
+    }
   });
-  // };
-
-  //                  DOM POST PT 1     AQUÍ OH
-
-  // // espera a que DOM se cargue completamente
-  // window.addEventListener('DOMContentLoaded', async () => {
-  //   // const querySnapshot = await getTasks();
-  //   // querysnapshot es una "foto" instantánea de la base de datos
-  //   onGetTasks((querySnapshot) => {
-  //     let divContain = '';
-  //     querySnapshot.forEach((doc) => {
-  //       const task = doc.data();
-  //       const likes = task.likes;
-  //       const numero = likes.length;
-  //       const userId = user1().uid;
-  //       const currentLike = likes.indexOf(userId);
-  //       let likeSrc = '';
-  //       const likeImg = () => {
-  //         if (currentLike === -1) {
-  //           likeSrc = '/*aquí va el icon*/';
-  //         } else {
-  //           likeSrc = '/*aquí va el icon*/';
-  //         }
-  //       };
-  //       likeImg();
-
-  //       divContain += `
-  //       <section class="post">
-  //       <div class="cabezaDePost">
-  //       <img class="fotoDePerfil" src="imagenes/pug.jpg" alt='foto del usuario'>
-  //       <p class="nombreDeUsuario"> Manchitas</p>
-  //       <ul disabled selected class ="menu-horizontal" id="mas"><img src="imagenes/mas.png" width=30px height=30px>
-  //        <div class="edit-delet">
-  //        <li class='editar' data-id='${doc.id}'><img width=15px src="imagenes/editar.png"> Editar publicación</li>
-  //        <li class='delete' data-id='${doc.id}'><img width=15px src="imagenes/eliminar.png"> Eliminar </li>
-  //        </div>
-  //       </ul>
-  //       </div>
-  //       <div class="cuerpoDePost" >
-  //       <p class="contenidoP"> ${task.description} </p> 
-  //       </div>
-  //       <div  class="linea"></div>
-  //       <div class="footerDePost">
-  //       <img class="like" data-id="${doc.id}" src='${likeSrc}' width=30px>
-  //       <p class="contadorLike" data-id="${doc.id}"> ${numero} Me encanta</p>
-  //       </div>
-  //       </section>
-  //       `;
-  //     });
-  //     taskContainer.innerHTML = divContain;
-  //   });
-  // });
 
   //                  TEMPLATE TIMELINE
   publicar.addEventListener('click', async (e) => {
-    e.preventDefault ();
+    e.preventDefault();
     const postDescription = formulario.postear;
-    //await postPublisher();
+    // await postPublisher();
 
     if (!editStatus) {
       await publicaciones(postDescription.value);
@@ -208,46 +267,11 @@ export const timeline = () => {
     formulario.reset();
   });
 
-  //                  DOM POST PT 2    AQUÍ OH
-
-  // const userId = user1().uid;
-  // const likeBtn = taskContainer.querySelectorAll('.like');
-
-  // // likeBtn.forEach((btn) => {
-  // //   btn.src = 'imagenes/dislike.png'
-  // // })
-
-  // likeBtn.forEach((btn) => {
-  //   btn.addEventListener('click', async (e) => {
-  //     const id = e.target.dataset.id;
-  //     const doc = await getTask(id);
-  //     const likes = doc.data().likes;
-  //     const currentLike = likes.indexOf(userId);
-  //     // let numero = likes.length;
-  //     console.log(likes);
-  //     if (currentLike === -1) {
-  //       // btn.src = 'imagenes/like.png';
-  //       giveLike(id, userId);
-  //       // console.log(btn)
-  //       // numero = numero + 1
-  //       // console.log(numero + " likes")
-  //       // contadorLike.innerHTML = numero + " me encanta"
-  //     } else {
-  //       // btn.src = 'imagenes/dislike.png';
-  //       disLike(id, userId);
-  //       // numero = numero - 1
-  //       // console.log(numero + " likes")
-  //       // contadorLike.innerHTML = numero + " me encanta"
-  //       // console.log(btn)
-  //     }
-  //   });
-  // });
-
   //       FUNCIÓN LOGOUT
   console.log('Función Logout');
   userLogout.addEventListener('click', (e) => {
     e.preventDefault();
     logOut(auth);
-    return inicioDeSesion();
+    return window.location = 'http://localhost:3000/#';
   });
 };

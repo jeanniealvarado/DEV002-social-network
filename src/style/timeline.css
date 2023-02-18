@@ -12,8 +12,8 @@
     }
     .section-posting {
         height: 25%;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        /*flex-direction: column;*/
         font-size: 16px;
     }
     .form-post{
@@ -57,9 +57,58 @@
         display:grid;
         gap: 15px;
     }
+    .post-options{
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
     .post-foreach{
         background-color: #fff6d8;
+        display: flow-root;
+        margin: 15px;
+        padding: 10px;
     }
+    .btn-delete{
+        background: var(--enfasis);
+        border: none;
+    border-radius: 10px;
+    }
+    .btn-edit{
+        background: var(--enfasis);
+        border: none;
+    border-radius: 10px;
+    }
+    .btn-like{
+        border:0;
+        background: none;
+        font-size: 18px;
+    }
+    /*.btn-like:hover{
+        color: var(--complementario);
+
+    }*/
+    .btn-like.normal{
+        color: var(--enfasis);
+    }
+    .btn-like.active{
+        color: var(--complementario);
+    }
+    
+    
+    .post-nameDate{
+        display:flex;
+        justify-content: flex-end;
+        gap: 15px;
+
+    }
+    .post-like{
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        padding: 5px;
+        align-items: baseline;
+    }
+    
     
     footer {
         width: 100%;
