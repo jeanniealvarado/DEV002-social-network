@@ -2,9 +2,13 @@
  * @jest-environment jsdom
  */
 
-import { registerFirebase, login, registerGoogle } from '../src/Firebase/FirebaseFunctions.js';
 import {
-  provider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup,
+  registerFirebase, login, registerGoogle, getAllPosts, logOut,
+} from '../src/Firebase/FirebaseFunctions.js';
+import {
+  getDocs,
+  provider, sendEmailVerification, signInWithEmailAndPassword,
+  signInWithPopup, doc, signOut, auth,
 } from '../src/Firebase/FirebaseImport.js';
 // import { auth } from '../src/main.js';
 
@@ -18,16 +22,24 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
   query: () => null,
   collection: () => null,
   orderBy: () => null,
+  db: () => null,
   // auth:{currentUser:{}},
   auth: jest.fn(() => ({ auth: 'TEST ' })),
   provider: jest.fn(() => ({ provider: 'TEST ' })),
-  signInWithEmailAndPassword: jest.fn((auth, email, password) => {
+  signInWithEmailAndPassword: jest.fn((email, password) => {
     if (!email || !password) {
       throw new Error('ERROR');
     }
-    Promise.resolve({ user: 'admin' });
+    return Promise.resolve({ user: 'admin' });
   }),
   signInWithPopup: jest.fn(),
+  getDocs: jest.fn(() => ({ collection: 'TEST' })),
+  signOut: jest.fn((auth) => {
+    if (!auth) {
+      throw new Error('ERROR');
+    }
+    return Promise.resolve({});
+  }),
 }));
 
 describe('Tests para Register', () => {
@@ -53,5 +65,22 @@ describe('test para acceder con google', () => {
   it('la funcion llama a signInWithPopup', async () => {
     await registerGoogle(provider);
     expect(signInWithPopup).toHaveBeenCalled();
+  });
+});
+
+describe('test para mostrar los posts', () => {
+  it('la función llama a getDocs', async () => {
+    await getAllPosts();
+    expect(getDocs).toHaveBeenCalled();
+  });
+});
+
+describe('test para cerrar sesión', () => {
+  it('la función debe llamar a auth', async () => {
+    await logOut();
+    expect(signOut).toHaveBeenCalled();
+  });
+  it('la función debe lanzar un error', async () => {
+    await expect(logOut()).rejects.toThrow('ERROR');
   });
 });

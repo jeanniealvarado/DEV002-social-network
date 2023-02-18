@@ -1,6 +1,6 @@
 // import { template } from '../lib/Router.js';
 import {
-  logOut, publicaciones, onGetPost, deletePost, editPost, getPost, datePost,
+  logOut, publicaciones, deletePost, getPost, datePost,
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
@@ -218,8 +218,8 @@ export const timeline = () => {
     formulario.reset();
   });
 
-  //       FUNCIÓN LOGOUT
-  console.log('Función Logout');
+  //                FUNCIÓN LOGOUT
+  console.log(logOut);
   userLogout.addEventListener('click', (e) => {
     e.preventDefault();
     logOut(auth);
