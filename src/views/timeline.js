@@ -218,8 +218,8 @@ export const timeline = () => {
     formulario.reset();
   });
 
-  //       FUNCIÓN LOGOUT
-  console.log('Función Logout');
+  //                FUNCIÓN LOGOUT
+  console.log(logOut);
   userLogout.addEventListener('click', (e) => {
     e.preventDefault();
     logOut(auth);
