@@ -50,11 +50,6 @@ export const publicaciones = (post) => {
   const createdDateTime = Timestamp.fromDate(new Date());
   const date = createdDateTime.toDate();
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear().toString().slice(-2)}`;
-<<<<<<< HEAD
- 
-=======
-
->>>>>>> f6a591b0fcdb3997457a73156d94f3865a64970d
   addDoc(collection(db, 'users'), {
     post,
     name: auth.currentUser.displayName,
@@ -76,12 +71,6 @@ export const onGetPost = (querySnapshot) => onSnapshot(collection(db, 'users'), 
 export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 
 // para editar posts
-<<<<<<< HEAD
-export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
-// actualizar publicaciones
-export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
-export const getPost = (id) => getDoc(doc(db, 'users', id));
-=======
 export const editPost = (id) => getDoc(doc(db, 'users', id));
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
@@ -89,7 +78,6 @@ export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
 
 // función para obtener un post por su ID
->>>>>>> f6a591b0fcdb3997457a73156d94f3865a64970d
 //export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   onSnapshot(q, querySnapshot);

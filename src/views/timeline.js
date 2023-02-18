@@ -90,54 +90,6 @@ export const timeline = () => {
   const formulario = document.getElementById('formPost');
   let editStatus = false;
   let id = '';
-<<<<<<< HEAD
-
-  // const postPublisher = async () => {
-  // const querySnapshot = await getAllPosts();
-  datePost((querySnapshot) => {
-    let html = '';
-
-    querySnapshot.forEach((doc) => {
-      const postData = doc.data();
-      console.log(postData);
-      html += `
-         <div class = 'post-foreach'>
-            <p>${auth.currentUser.displayName}</p>
-            <p>${postData.formattedDate}</p>
-            <p>${postData.post}</p>
-            <button class='btn-delete' data-id='${doc.id}'>
-            Eliminar
-            </button>
-            <button class='btn-edit' data-id='${doc.id}'>
-            Editar
-            </button>
-            </div>
-       `;
-       //console.log(doc.id)
-
-    });
-    postedDiv.innerHTML = html;
-    const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
-    btnsDelete.forEach((btn) => {
-      btn.addEventListener('click', ({ target: { dataset } }) => {
-        deletePost(dataset.id);
-      });
-    });
-
-    const btnsEdit = postedDiv.querySelectorAll('.btn-edit');
-    btnsEdit.forEach((btn) => {
-      //console.log(btn);
-      btn.addEventListener('click', async ({ target: { dataset } }) => {
-       // console.log('boton edit', dataset.id);
-        const docX = await getPost(dataset.id);
-        const postData = docX.data();
-        formulario.postear.value = postData.post;
-
-        editStatus = true;
-        id = docX.id;
-
-        formulario.publicar.innerText = 'Update';
-=======
   //const usuariaHola = document.getElementById('usuariaHola');
 
   //           ELIMINAR, EDITAR, LIKES
@@ -243,7 +195,6 @@ export const timeline = () => {
             updateNotes(id, { likes: arrayPost, countLikes: likesCount });
           });// la del click
         });
->>>>>>> f6a591b0fcdb3997457a73156d94f3865a64970d
       });
     } else {
       console.log('usuaria no logueada');

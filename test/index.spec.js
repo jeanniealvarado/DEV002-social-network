@@ -49,18 +49,9 @@ describe('Test para inicio sesion de usuario', () => {
   });
 });
 
-<<<<<<< HEAD
-//   it('debe llamar a createUserWithEmailAndPassword cuando se ejecute', async () => {
-//     await registerFirebase(email, password);
-//     // expect(createUserWithEmailAndPassword).toHaveBeenCalled(email, password);
-//   });
-// });
-// TESTEAR; login, registerGoogle, publicaciones, addDoc, 
-=======
 describe('test para acceder con google', () => {
   it('la funcion llama a signInWithPopup', async () => {
     await registerGoogle(provider);
     expect(signInWithPopup).toHaveBeenCalled();
   });
 });
->>>>>>> f6a591b0fcdb3997457a73156d94f3865a64970d
