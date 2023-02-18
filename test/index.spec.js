@@ -7,7 +7,7 @@ import {
 } from '../src/Firebase/FirebaseFunctions.js';
 import {
   getDocs,
-  provider, sendEmailVerification, signInWithEmailAndPassword, 
+  provider, sendEmailVerification, signInWithEmailAndPassword,
   signInWithPopup, doc, signOut, auth,
 } from '../src/Firebase/FirebaseImport.js';
 // import { auth } from '../src/main.js';
@@ -26,7 +26,7 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
   // auth:{currentUser:{}},
   auth: jest.fn(() => ({ auth: 'TEST ' })),
   provider: jest.fn(() => ({ provider: 'TEST ' })),
-  signInWithEmailAndPassword: jest.fn((auth, email, password) => {
+  signInWithEmailAndPassword: jest.fn((email, password) => {
     if (!email || !password) {
       throw new Error('ERROR');
     }
@@ -34,7 +34,12 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
   }),
   signInWithPopup: jest.fn(),
   getDocs: jest.fn(() => ({ collection: 'TEST' })),
-  signOut: jest.fn(() => Promise.resolve()),
+  signOut: jest.fn((auth) => {
+    if (!auth) {
+      throw new Error('ERROR');
+    }
+    return Promise.resolve({});
+  }),
 }));
 
 describe('Tests para Register', () => {
@@ -74,5 +79,8 @@ describe('test para cerrar sesión', () => {
   it('la función debe llamar a auth', async () => {
     await logOut();
     expect(signOut).toHaveBeenCalled();
+  });
+  it('la función debe lanzar un error', async () => {
+    await expect(logOut()).rejects.toThrow('ERROR');
   });
 });

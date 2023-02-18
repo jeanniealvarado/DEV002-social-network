@@ -6,9 +6,8 @@ import {
   db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion, query, orderBy,
 } from './FirebaseImport.js';
 
-
 //           FUNCIÓN REGISTRO EN FIREBASE
-export const registerFirebase = (email, password, name) => { 
+export const registerFirebase = (email, password, name) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -57,7 +56,7 @@ export const publicaciones = (post) => {
     likes: [],
     countLikes: 0,
     createdDateTime: Timestamp.fromDate(new Date()),
-    formattedDate: formattedDate,
+    formattedDate,
   });
 };
 
@@ -78,18 +77,19 @@ export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc
 export const updateNotes = (id, newFile) => updateDoc(doc(db, 'users', id), newFile);
 
 // función para obtener un post por su ID
-//export const editLike = (id) => getDoc(doc(db, 'users', id));
+// export const editLike = (id) => getDoc(doc(db, 'users', id));
 export const datePost = (querySnapshot) => {
   onSnapshot(q, querySnapshot);
 };
 
 //         CERRAR SESIÓN
-export const logOut = (auth) => {
+export const logOut = () => {
   signOut(auth).then(() => {
   // Sign-out successful.
   }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    throw new Error(errorMessage);
   // An error happened.
   });
 };
