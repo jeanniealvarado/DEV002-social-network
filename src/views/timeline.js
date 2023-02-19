@@ -101,7 +101,7 @@ export const timeline = () => {
       datePost((querySnapshot) => {
         let html = '';
         let optionsUser = '';
-        let saludoUsuaria= '';
+        let saludoUsuaria = '';
         querySnapshot.forEach((doc) => {
           const postData = doc.data();
           if (userID === postData.userID) {
@@ -138,6 +138,7 @@ export const timeline = () => {
         });
         holaUsuaria.innerHTML = saludoUsuaria;
         postedDiv.innerHTML = html;
+        
         //             ELIMINAR
         const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
         btnsDelete.forEach((btn) => {
