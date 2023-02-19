@@ -1,14 +1,23 @@
 .section-head {
-    /*width: 100%;*/
+    width: 80%;
     height: 15%;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: space-between;
+
     }
     .logo-timeline{
         width: 140px;
         height: auto;
-        margin-right: 180px;
+        /*margin-right: 80px;*/
         margin-top: 40px;
+    }
+    .hola-estilo{
+        display: flex;
+        /*justify-content: flex-end;*/
+        margin-top: 50px;
+        font-weight: 500;
     }
     .section-posting {
         height: 25%;
@@ -53,7 +62,6 @@
         display: grid;
     }
     .div-posted{
-        
         display:grid;
         gap: 15px;
     }
@@ -68,10 +76,20 @@
         margin: 15px;
         padding: 10px;
     }
+    .post-nameDate{
+        display:flex;
+        justify-content: space-between;
+        gap: 15px;
+        font-weight: 500;
+    }
+    .par-name{
+        display: flex;
+        /*margin-right: 185px;*/
+    }
     .btn-delete{
         background: var(--enfasis);
         border: none;
-    border-radius: 10px;
+        border-radius: 10px;
     }
     .btn-edit{
         background: var(--enfasis);
@@ -94,13 +112,6 @@
         color: var(--complementario);
     }
     
-    
-    .post-nameDate{
-        display:flex;
-        justify-content: flex-end;
-        gap: 15px;
-
-    }
     .post-like{
         display: flex;
         justify-content: flex-end;
@@ -133,4 +144,10 @@
         color: var(--base);
         width: 32px;
         height: auto;
+    }
+
+    @media only screen and (max-width: 1920px) and (min-width: 900px) {
+        .section-head {
+            width: 60%;
+        }
     }

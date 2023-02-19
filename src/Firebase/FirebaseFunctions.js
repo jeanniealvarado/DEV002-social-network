@@ -20,7 +20,7 @@ export const registerFirebase = (email, password, name) => {
     .catch((error) => {
       console.log(error.code);
       console.log(error.message);
-    //  alert(errorMessage);
+      //  alert(errorMessage);
     });
 };
 
@@ -70,7 +70,7 @@ export const onGetPost = (querySnapshot) => onSnapshot(collection(db, 'users'), 
 export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 
 // para editar posts
-export const editPost = (id) => getDoc(doc(db, 'users', id));
+//export const editPost = (id) => getDoc(doc(db, 'users', id));
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
 // actualizar publicaciones
@@ -85,12 +85,12 @@ export const datePost = (querySnapshot) => {
 //         CERRAR SESIÓN
 export const logOut = () => {
   signOut(auth).then(() => {
-  // Sign-out successful.
+    // Sign-out successful.
   }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     throw new Error(errorMessage);
-  // An error happened.
+    // An error happened.
   });
 };
 

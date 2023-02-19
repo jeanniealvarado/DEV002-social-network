@@ -101,7 +101,7 @@ export const timeline = () => {
       datePost((querySnapshot) => {
         let html = '';
         let optionsUser = '';
-        let saludoUsuaria= '';
+        let saludoUsuaria = '';
         querySnapshot.forEach((doc) => {
           const postData = doc.data();
           if (userID === postData.userID) {
@@ -118,15 +118,15 @@ export const timeline = () => {
           } else {
             optionsUser = '';
           }
-          saludoUsuaria = `<div>
+          saludoUsuaria = `<div class='hola-estilo'>
           Hola,
           ${auth.currentUser.displayName}
           </div>`;
           html
           += ` <div class = 'post-foreach'>
           <div class = 'post-nameDate'>
-          <p>${postData.name}</p>
-          <p>${postData.formattedDate}</p>
+          <p class='par-name'>${postData.name}</p>
+          <p class ='par-date'>${postData.formattedDate}</p>
           </div>
           <p>${postData.post}</p>
           ${optionsUser}
@@ -138,6 +138,7 @@ export const timeline = () => {
         });
         holaUsuaria.innerHTML = saludoUsuaria;
         postedDiv.innerHTML = html;
+        
         //             ELIMINAR
         const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
         btnsDelete.forEach((btn) => {
