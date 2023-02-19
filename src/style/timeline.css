@@ -1,21 +1,23 @@
 .section-head {
-    /*width: 100%;*/
+    width: 80%;
     height: 15%;
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: space-between;
+
     }
     .logo-timeline{
         width: 140px;
         height: auto;
-        margin-right: 80px;
+        /*margin-right: 80px;*/
         margin-top: 40px;
     }
     .hola-estilo{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 50px;
-    font-weight: 500;
+        display: flex;
+        /*justify-content: flex-end;*/
+        margin-top: 50px;
+        font-weight: 500;
     }
     .section-posting {
         height: 25%;
@@ -142,4 +144,10 @@
         color: var(--base);
         width: 32px;
         height: auto;
+    }
+
+    @media only screen and (max-width: 1920px) and (min-width: 900px) {
+        .section-head {
+            width: 60%;
+        }
     }
