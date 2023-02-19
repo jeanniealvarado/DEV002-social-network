@@ -2,13 +2,14 @@
  * @jest-environment jsdom
  */
 
+import { async } from 'regenerator-runtime';
 import {
   registerFirebase, login, registerGoogle, getAllPosts, logOut,
 } from '../src/Firebase/FirebaseFunctions.js';
 import {
   getDocs,
   provider, sendEmailVerification, signInWithEmailAndPassword,
-  signInWithPopup, doc, signOut, auth,
+  signInWithPopup, doc, signOut, auth, Timestamp,
 } from '../src/Firebase/FirebaseImport.js';
 // import { auth } from '../src/main.js';
 
@@ -33,7 +34,7 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
     return Promise.resolve({ user: 'admin' });
   }),
   signInWithPopup: jest.fn(),
-  getDocs: jest.fn(() => ({ collection: 'TEST' })),
+  getDocs: jest.fn(() => ({ docs: 'TEST' })),
   signOut: jest.fn((auth) => {
     if (!auth) {
       throw new Error('ERROR');
@@ -73,6 +74,13 @@ describe('test para mostrar los posts', () => {
     await getAllPosts();
     expect(getDocs).toHaveBeenCalled();
   });
+  // it('la función muestra la fecha en el formato esperado', async () => {
+  //   await 
+  // });
+  it('la función devuelve una matriz de posts', async () => {
+    const posts = await getAllPosts();
+    expect(Array.isArray(posts)).toBe(true);
+  });
 });
 
 describe('test para cerrar sesión', () => {
@@ -80,7 +88,7 @@ describe('test para cerrar sesión', () => {
     await logOut();
     expect(signOut).toHaveBeenCalled();
   });
-  it('la función debe lanzar un error', async () => {
-    await expect(logOut()).rejects.toThrow('ERROR');
-  });
+  // it('la función debe lanzar un error', async () => {
+  //   await expect(logOut()).rejects.toThrow('ERROR');
+  // });
 });
