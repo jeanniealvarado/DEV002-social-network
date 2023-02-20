@@ -12,9 +12,8 @@
 * [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
 
 ## 1. Preámbulo
-
-
-¿Qué es una red social?
+Hoy en día las redes sociales se han convertido en un medio de comunicación, pero también en un medio de expresión y una manera de conectar con personas alrededor del mundo, un espacio dónde compartir ideas, información, anécdotas e incluso emociones. 
+Hace años que dejaron de ser solo un medio de entretenimiento para adolescentes y se han convetido en parte de la vida cotidiana de personas de todas las edades y estratos sociales.
 
 ## 2. Definición del producto
 
@@ -280,8 +279,8 @@ Para iniciar la conceptualización del proyecto realizamos un diseño de baja fi
 ![Prot-BC-4]([https://user-images.githubusercontent.com/111525050/219999453-2c30683a-132c-4f58-a329-8624c3ee9c48.jpeg](https://user-images.githubusercontent.com/111525050/219999453-2c30683a-132c-4f58-a329-8624c3ee9c48.jpeg))
 
 Pedimos feedback e iteramos el siguiente prototipo de baja fidelidad, pero en formto digital:
-[Prototipo-BC-Dig]
-
+![Prototipo-BC-Dig-1](https://github.com/beresdev/social-network/blob/main/img-rdm/prototypes/protBC1Figma.PNG)
+![Prototipo-BC-Dig-2](https://github.com/beresdev/social-network/blob/main/img-rdm/prototypes/protBC2Figma.PNG)
 
 Una vez más pedimos feedback a compañeras y mentores e iteramos en el prototipo de alta calidad, el cual se muestra a continuación.
 
