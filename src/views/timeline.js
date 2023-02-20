@@ -1,11 +1,11 @@
-// import { template } from '../lib/Router.js';
+import { router } from '../lib/Router.js';
 import {
   logOut, publicaciones, deletePost, getPost, datePost,
   updateNotes,
 }
   from '../Firebase/FirebaseFunctions.js';
 import { auth, doc, onAuthStateChanged } from '../Firebase/FirebaseImport.js';
-import { inicioDeSesion } from './InicioDeSesion.js';
+
 // onGetPost, deletePost, getPost, publicaciones
 
 const main = document.getElementById('main');
@@ -90,7 +90,6 @@ export const timeline = () => {
   const formulario = document.getElementById('formPost');
   let editStatus = false;
   let id = '';
-  //const usuariaHola = document.getElementById('usuariaHola');
 
   //           ELIMINAR, EDITAR, LIKES
 
@@ -138,7 +137,7 @@ export const timeline = () => {
         });
         holaUsuaria.innerHTML = saludoUsuaria;
         postedDiv.innerHTML = html;
-        
+
         //             ELIMINAR
         const btnsDelete = postedDiv.querySelectorAll('.btn-delete');
         btnsDelete.forEach((btn) => {
@@ -223,7 +222,8 @@ export const timeline = () => {
   console.log(logOut);
   userLogout.addEventListener('click', (e) => {
     e.preventDefault();
-    logOut(auth);
-    return window.location = 'http://localhost:3000/#';
+    logOut();
+    window.history.pushState({}, '', '#/');
+    router();
   });
 };

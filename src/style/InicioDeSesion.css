@@ -105,3 +105,26 @@
     position: relative;
     top: 8px;
 }
+footer {
+    width: 100%;
+    height: 50px;
+    background-color: var(--complementario);
+    color: var(--base);
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1920px) and (min-width: 800px) {
+    .section-register{
+height: 5%;
+padding-top: 50px;
+    }
+    .section-google{
+        margin-top: 30px;
+    }
+    .section-form-inicio{
+        margin-top: 35px;
+    }
+}

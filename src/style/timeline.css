@@ -1,5 +1,5 @@
 .section-head {
-    width: 80%;
+    width: 85%;
     height: 15%;
     margin: 0;
     padding: 0;
@@ -101,10 +101,6 @@
         background: none;
         font-size: 18px;
     }
-    /*.btn-like:hover{
-        color: var(--complementario);
-
-    }*/
     .btn-like.normal{
         color: var(--enfasis);
     }
@@ -129,7 +125,6 @@
         position: fixed;
         bottom: 0;
         display: flex;
-        justify-content: right;
     }
     
     .signOut-button{
@@ -139,6 +134,7 @@
         margin-right: 15px;
         background-color: var(--complementario);
         border: none;
+        margin-right: -300px;
     }
     .signOut-icon{
         color: var(--base);
