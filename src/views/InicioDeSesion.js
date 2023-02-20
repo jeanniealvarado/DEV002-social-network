@@ -123,6 +123,7 @@ template('inicioDeSesion', () => { // Se crea una función anónima
   google.addEventListener('click', async (e) => {
     e.preventDefault();
      registerGoogle();
-     window.location = 'http://localhost:3000/#/timeline';
+     window.history.pushState({}, '', '#/');
+     router();
   });
 });
