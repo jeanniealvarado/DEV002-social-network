@@ -1,6 +1,5 @@
 import { registerGoogle, login } from '../Firebase/FirebaseFunctions.js';
-import { auth, provider } from '../Firebase/FirebaseImport.js';
-import { template, route } from '../lib/Router.js';
+import { template, router } from '../lib/Router.js';
 
 const main = document.getElementById('main');
 const footer = document.getElementById('footer');
@@ -107,12 +106,12 @@ template('inicioDeSesion', () => { // Se crea una función anónima
     e.preventDefault();
     const email = document.getElementById('correo').value;
     const password = document.getElementById('password').value;
-    console.log(email, password);
     const promesaLogin = login(email, password);
     promesaLogin
       .then((resultado) => {
         console.log(resultado);
-        window.location = 'http://localhost:3000/#/timeline';
+        window.history.pushState({}, '', '#/timeline');
+        router();
       // Función para manejar el nuevo cambio de ruta
       })
       .catch((error) => {

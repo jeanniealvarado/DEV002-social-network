@@ -3,7 +3,7 @@ import {
   initializeApp, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
   GoogleAuthProvider, signInWithEmailAndPassword, getAuth, addDoc, collection,
   getFirestore, signOut, updateProfile, onAuthStateChanged, getDoc, getDocs, onSnapshot,
-  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, arrayRemove, arrayUnion, query, orderBy,
+  db, auth, provider, deleteDoc, updateDoc, doc, Timestamp, query, orderBy,
 } from './FirebaseImport.js';
 
 //           FUNCIÓN REGISTRO EN FIREBASE
@@ -32,8 +32,6 @@ export const login = async (email, password) => {
   return promesaLogin;
 };
 
-//                 OBSERVADOR
-
 //          FUNCIÓN REGISTRO CON GOOGLE
 export const registerGoogle = () => {
   signInWithPopup(auth, provider);
@@ -43,8 +41,7 @@ export const registerGoogle = () => {
 
 // Para guardar Posts
 export const publicaciones = (post) => {
-  // const auth = getAuth();
-  console.log(auth.currentUser);
+   //console.log(auth.currentUser);
 
   const createdDateTime = Timestamp.fromDate(new Date());
   const date = createdDateTime.toDate();
@@ -63,14 +60,10 @@ export const publicaciones = (post) => {
 // para obtener data de las colecciones
 export const getAllPosts = () => getDocs(collection(db, 'users'));
 
-// para actualizar en tiempo real
-export const onGetPost = (querySnapshot) => onSnapshot(collection(db, 'users'), querySnapshot);
-
 // para borrar los posts
 export const deletePost = (id) => deleteDoc(doc(db, 'users', id));
 
 // para editar posts
-//export const editPost = (id) => getDoc(doc(db, 'users', id));
 export const getPost = (id) => getDoc(doc(db, 'users', id));
 export const q = query(collection(db, 'users'), orderBy('createdDateTime', 'desc'));
 // actualizar publicaciones

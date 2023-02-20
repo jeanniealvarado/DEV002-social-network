@@ -1,23 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-
-import { async } from 'regenerator-runtime';
 import {
   registerFirebase, login, registerGoogle, getAllPosts, logOut,
-  publicaciones, datePost, deletePost, q, updateNotes,
+ datePost, deletePost, updateNotes,
 } from '../src/Firebase/FirebaseFunctions.js';
 import {
   getDocs,
   provider, sendEmailVerification, signInWithEmailAndPassword,
-  signInWithPopup, doc, signOut, auth, Timestamp, onSnapshot,
-  deleteDoc, query, orderBy, updateDoc,
+  signInWithPopup, signOut, onSnapshot,
+  deleteDoc, updateDoc,
 } from '../src/Firebase/FirebaseImport.js';
-// import { auth } from '../src/main.js';
-
-// jest.mock('../src/main.js', () => ({
-//   auth: jest.fn(() => ({ auth: 'TEST ' })),
-// }));
 
 //          MOCKS
 jest.mock('../src/Firebase/FirebaseImport.js', () => ({
@@ -27,7 +20,6 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
   collection: () => null,
   orderBy: () => null,
   db: () => null,
-  // auth:{currentUser:{}},
   auth: jest.fn(() => ({ auth: 'TEST ' })),
   provider: jest.fn(() => ({ provider: 'TEST ' })),
   signInWithEmailAndPassword: jest.fn((email, password) => {
@@ -55,7 +47,6 @@ jest.mock('../src/Firebase/FirebaseImport.js', () => ({
 describe('Tests para Register', () => {
   it('test', async () => {
     registerFirebase();
-    // await new Promise(resolve => setTimeout(resolve,0))
     await new Promise(process.nextTick);
     expect(sendEmailVerification).toHaveBeenCalled();
   });
@@ -83,9 +74,6 @@ describe('test para mostrar los posts', () => {
     await getAllPosts();
     expect(getDocs).toHaveBeenCalled();
   });
-  // it('la función muestra la fecha en el formato esperado', async () => {
-  //   await
-  // });
   it('la función devuelve una matriz de posts', async () => {
     const posts = await getAllPosts();
     expect(typeof posts).toBe('object');
@@ -133,7 +121,4 @@ describe('test para cerrar sesión', () => {
     await logOut();
     expect(signOut).toHaveBeenCalled();
   });
-  // it('la función debe lanzar un error', async () => {
-  //   await expect(logOut()).rejects.toThrow('ERROR');
-  // });
 });
