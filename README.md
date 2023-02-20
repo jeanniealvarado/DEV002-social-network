@@ -1,15 +1,12 @@
-# <PowerL> - Creando una Red Social
+# PowerL - Creando una Red Social
 
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-* [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-* [6. Hacker edition](#6-hacker-edition)
-* [7. Entrega](#7-entrega)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
+* [2. Definición del producto](#2-definición-del-producto)
+* [3. Historias de usuario](#3-historias-de-usuario)
+* [4. Diseño de la Interfaz de Usuario (UI](#4-diseño-de-la-interfaz-de-usuario-ui)
+* [5. Testeos de usabilidad](#5-testeos-de-usabilidad)
 
 ## 1. Preámbulo
 Hoy en día las redes sociales se han convertido en un medio de comunicación, pero también en un medio de expresión y una manera de conectar con personas alrededor del mundo, un espacio dónde compartir ideas, información, anécdotas e incluso emociones. 
@@ -17,7 +14,7 @@ Hace años que dejaron de ser solo un medio de entretenimiento para adolescentes
 
 ## 2. Definición del producto
 
-[<PowerL>](AQUÍ VA EL ENLACE DE NETLIFY, SIN COMILLAS) es una red social creada
+[PowerL](https://hilarious-zuccutto-4547f1.netlify.app/#/) es una red social creada
  por y para laboratorians; es decir, una red para estudiantes y egresadas de los bootcamps de Laboratoria.
 
 Es una alternativa informal de comunicación a los canales que la organización nos ofrece, cuyo objetivo expresarnos de manera espontánea y divertida de
@@ -63,9 +60,7 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU1:  Registro de nueva usuaria
     
     **Yo como:** egresada o estudiante de Laboratoria
-    
     **Quiero:** poder registrarme en <*PowerL*> con mi correo electrónico
-    
     **Para:** iniciar sesión, publicar y ver el contenido de otras laboratorians
     
     ### Criterios de aceptación
@@ -116,11 +111,8 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU3: Acceso con cuenta de Google
     
     **Yo como:** egresada o estudiante de Laboratoria con cuenta de Google
-    
     **Quiero:** registrarme con mi cuenta de Google e iniciar sesión en <*PowerL*>
-    
     **Para:** omitir el formulario de registro
-    
     ### Criterios de aceptación
     
     - `Pantalla de inicio con nombre o logo de la RS
@@ -136,11 +128,8 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU4:  Publicar un post
     
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder publicar un post
-    
     **Para:** compartir información con otras laboratorians
-    
     ### Criterios de aceptación
     
     - `Input para agregar texto
@@ -166,11 +155,8 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU5: Vista general / Timeline
     
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder ingresar a la vista general o timeline
-    
     **Para:** ver los post
-    
     ### Criterios de aceptación
     
     - `Pantalla de timeline con nombre o logo de la RS
@@ -183,13 +169,10 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     - Se carga la información con los post anteriores del mas reciente al mas antiguo`
     
     ### HU6: Dar like a un post
-    
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder darle Like a los post publicados en el timeline.
-    
     **Para:** interactuar con las compañeras
-    
+   
     ### Criterios de aceptación
     
     - `Que cada post tenga un boton de like
@@ -205,9 +188,7 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU7: Editar posts
     
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder editar mis post después de publicarlos
-    
     **Para:** corregir errores o cambiar/agregar información
     
     ### Criterios de aceptación
@@ -229,9 +210,7 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU8: Eliminar posts
     
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder eliminar cualquiera de mis post publicados
-    
     **Para:** que ya no sean visibles ni se pueda interactuar con ellos
     
     ### Criterios de aceptación
@@ -250,9 +229,7 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
     ### HU9: Mostrar fecha y hora de los posts
     
     **Yo como:** usuaria de *<PowerL>*
-    
     **Quiero:** poder ver fecha y hora de creación de post
-    
     **Para:** saber cuándo un post fue publicado
     
     ### Criterios de aceptación
@@ -270,13 +247,13 @@ Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de 
 
 Para iniciar la conceptualización del proyecto realizamos un diseño de baja fidelidad (en papel blanco y tinta negra) que mostraba, a grandes rasgos, cuál esperábamos que fuera el flujo de nuestra web. 
 
-![Prot-BC-1]([https://user-images.githubusercontent.com/111525050/219999450-d078fafa-4fe0-481d-a2ee-ad52f8719881.jpeg](https://user-images.githubusercontent.com/111525050/219999450-d078fafa-4fe0-481d-a2ee-ad52f8719881.jpeg))
+![Prot-BC-1](https://user-images.githubusercontent.com/111525050/219999450-d078fafa-4fe0-481d-a2ee-ad52f8719881.jpeg)
 
-![Prot-BC-2]([https://user-images.githubusercontent.com/111525050/219999452-3b2c5c5f-63e2-4bc7-a116-95b26bf98836.jpeg](https://user-images.githubusercontent.com/111525050/219999452-3b2c5c5f-63e2-4bc7-a116-95b26bf98836.jpeg))
+![Prot-BC-2](https://user-images.githubusercontent.com/111525050/219999452-3b2c5c5f-63e2-4bc7-a116-95b26bf98836.jpeg)
 
-![Prot-BC-3]([https://user-images.githubusercontent.com/111525050/219999451-2b31e7b9-8876-48e9-adbc-1bc20054df00.jpeg](https://user-images.githubusercontent.com/111525050/219999451-2b31e7b9-8876-48e9-adbc-1bc20054df00.jpeg))
+![Prot-BC-3](https://user-images.githubusercontent.com/111525050/219999451-2b31e7b9-8876-48e9-adbc-1bc20054df00.jpeg)
 
-![Prot-BC-4]([https://user-images.githubusercontent.com/111525050/219999453-2c30683a-132c-4f58-a329-8624c3ee9c48.jpeg](https://user-images.githubusercontent.com/111525050/219999453-2c30683a-132c-4f58-a329-8624c3ee9c48.jpeg))
+![Prot-BC-4](https://user-images.githubusercontent.com/111525050/219999453-2c30683a-132c-4f58-a329-8624c3ee9c48.jpeg)
 
 Pedimos feedback e iteramos el siguiente prototipo de baja fidelidad, pero en formto digital:
 ![Prototipo-BC-Dig-1](https://github.com/beresdev/social-network/blob/main/img-rdm/prototypes/protBC1Figma.PNG)
@@ -284,13 +261,13 @@ Pedimos feedback e iteramos el siguiente prototipo de baja fidelidad, pero en fo
 
 Una vez más pedimos feedback a compañeras y mentores e iteramos en el prototipo de alta calidad, el cual se muestra a continuación.
 
-![Image]([https://user-images.githubusercontent.com/111525050/220001042-0a9a46ba-967b-4810-8862-72543c38e49b.png](https://user-images.githubusercontent.com/111525050/220001042-0a9a46ba-967b-4810-8862-72543c38e49b.png))
+![Image](https://user-images.githubusercontent.com/111525050/220001042-0a9a46ba-967b-4810-8862-72543c38e49b.png))
 
 La imagen anterior muestra las tres vistas principales que planeamos en nuestro prototipo de alta fidelidad. La herramienta que utilizamos para ello fue figma, ya que permitía el trabajo colaborativo remoto, el diseño de flujo y las vistas previas de nuestro prototipo en diferentes dispositivos.
 
 Resultado después de comentarios de usuarias
 
-![Prot-AC](https://user-images.githubusercontent.com/111525050/219999044-077e4d3b-ff99-45e1-93b2-298b530102fc.png))
+![Prot-AC](https://user-images.githubusercontent.com/111525050/219999044-077e4d3b-ff99-45e1-93b2-298b530102fc.png)
 
 
 
